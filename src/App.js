@@ -7,6 +7,7 @@ import Facebook from './facebook.png'
 import Twitter from './twitter.png'
 import Instagram from './instagram.png'
 import LinkedIn from './linkedin.png'
+import Email from './email.png'
 
 class App extends React.Component {
 
@@ -22,19 +23,15 @@ class App extends React.Component {
                 social: [
                     {
                         type: "facebook",
-                        url: ""
+                        url: "https://www.facebook.com/anastasia.aivatoglou.7"
                     },
                     {
                         type: "linkedin",
-                        url: ""
-                    },
-                    {
-                        type: "twitter",
-                        url: ""
+                        url: "https://www.linkedin.com/in/anastasia-aivatoglou-963278173/"
                     },
                     {
                         type: "mail",
-                        url: ""
+                        url: "mailto:an.aivatoglou@gmail.com"
                     }
                 ]
             }, {
@@ -44,15 +41,15 @@ class App extends React.Component {
                 social: [
                     {
                         type: "facebook",
-                        url: ""
+                        url: "https://www.facebook.com/chrysgr9"
                     },
                     {
                         type: "linkedin",
-                        url: ""
+                        url: "https://www.linkedin.com/in/chrysoula-grigoropoulou-728b02176/"
                     },
                     {
                         type: "mail",
-                        url: ""
+                        url: "mailto:grigoropoulou.chrys@gmail.com\n"
                     }
                 ]
             }
@@ -70,6 +67,9 @@ class App extends React.Component {
             }, {
                 name: "Twitter",
                 url: "https://twitter.com/WellnessLab_psy"
+            }, {
+                name: "Email",
+                url: "mailto:wellnesslab@gmail.com"
             }
         ]
     };
@@ -80,8 +80,7 @@ class App extends React.Component {
         .then(res => res.json())
         .then(
             (result) => {
-
-              console.log(result);
+              //console.log(result);
               this.setState({
                 articles: result.items
               });
@@ -164,7 +163,9 @@ class App extends React.Component {
                                     ? Twitter
                                     : this.state.socialMedia[i].name == "Instagram"
                                         ? Instagram
-                                        : LinkedIn
+                                        : this.state.socialMedia[i].name == "LinkedIn"
+                                            ? LinkedIn
+                                            : Email
                         }/>
                     </div>
                     <div className="card-content">
@@ -217,8 +218,8 @@ class App extends React.Component {
               <h1 className="text_h center header cd-headline letters type">
                 <span>WellnessLab </span>
                 <span className="cd-words-wrapper waiting">
-                  <b className="is-visible">για υγειές σώμα</b>
-                  <b>για υγειή ψυχή</b>
+                  <b className="is-visible">για υγιές σώμα</b>
+                  <b>για υγιή ψυχή</b>
                 </span>
               </h1>
             </div>
