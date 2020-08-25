@@ -253,7 +253,21 @@ class App extends React.Component {
             </div>
           </div>
 
-          <div className="parallax-container">
+            <div className="section scrollspy" id="work">
+                <div className="container">
+                    <h2 className="header text_b">Εμπειρίες Υγείας</h2>
+                    <div className="row">
+                        <div className="col s12">
+                            <h2 className="center header text_h2">
+                                Μοιράσου και εσύ την δικιά σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>παρακάτω φόρμα</a>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div className="parallax-container">
             <div className="parallax"><img src={Cover}/></div>
           </div>
 
