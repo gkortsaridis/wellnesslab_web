@@ -8,6 +8,7 @@ import Twitter from './twitter.png'
 import Instagram from './instagram.png'
 import LinkedIn from './linkedin.png'
 import Email from './email.png'
+import ReactGA from 'react-ga';
 
 class App extends React.Component {
 
@@ -73,6 +74,9 @@ class App extends React.Component {
             }
         ]
     };
+
+    ReactGA.initialize('UA-176319397-1');
+    ReactGA.pageview('/home');
   }
 
   componentDidMount() {
