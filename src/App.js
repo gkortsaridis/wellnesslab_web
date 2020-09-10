@@ -258,9 +258,22 @@ class App extends React.Component {
                     <h2 className="header text_b">Εμπειρίες Υγείας</h2>
                     <div className="row">
                         <div className="col s12">
-                            <h2 className="center header text_h2">
-                                Μοιράσου και εσύ την δικιά σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>παρακάτω φόρμα</a>
-                            </h2>
+                            <h4 className="center header text_h2">
+                                Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="section scrollspy" id="work">
+                <div className="container">
+                    <h2 className="header text_b">Εθελοντές Αρθρογράφοι</h2>
+                    <div className="row">
+                        <div className="col s12">
+                            <h4 className="center header text_h2">
+                                Κάνεις τα πρώτα σου βήματα στην επιστήμη της ψυχολογίας και θέλεις να αποκτήσεις εμπειρία στην αρθρογραφία πάνω σε θέματα σωματικής και ψυχικής υγείας; Η ευκαιρία να βελτιώσεις τις γνώσεις σου και να αποκτήσεις νέες δεξιότητες είναι εδώ! Το WellnessLab ψάχνει εθελοντές/ριες για την συγγραφή άρθρων βασισμένων σε σχετική επιστημονική βιβλιογραφία! Στείλε μας μέσω e-mail στο <a href = "mailto: wellnesslab.psy@gmail.com">wellnesslab.psy@gmail.com</a> ένα κείμενο 300 λέξεων για ένα ζήτημα ψυχολογίας που σε απασχολεί και θα έχεις σύντομα απάντηση από εμάς!
+                            </h4>
                         </div>
                     </div>
                 </div>
