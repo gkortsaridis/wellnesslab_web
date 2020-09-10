@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "06bc0668626f4123d54f12f57b5670a8",
+    "revision": "5c2eef2bd5afeaba22bf423f98aff1fb",
     "url": "/wellnesslab_web/index.html"
   },
   {
-    "revision": "2550edb94c443888e4f6",
+    "revision": "9d32ffea207929fb7efd",
     "url": "/wellnesslab_web/static/css/main.5f361e03.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wellnesslab_web/static/js/2.19ae5dd6.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "2550edb94c443888e4f6",
-    "url": "/wellnesslab_web/static/js/main.79be44c9.chunk.js"
+    "revision": "9d32ffea207929fb7efd",
+    "url": "/wellnesslab_web/static/js/main.e3494b06.chunk.js"
   },
   {
     "revision": "657ba9476c4c020f72a2",
