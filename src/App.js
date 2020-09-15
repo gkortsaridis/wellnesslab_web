@@ -103,11 +103,11 @@ class App extends React.Component {
           <div className="col s12 m4 l4">
             <div className="card">
               <div className="card-image waves-effect waves-block waves-light">
-                <img className="activator" src={this.state.articles[i].thumbnail}/>
+                <img className="activator" src={this.state.articles[i].thumbnail} style={{width: "100%", height: "600px",  objectFit: "none", objectPosition: "center" }}/>
               </div>
               <div className="card-content">
                 <span className="card-title activator grey-text text-darken-4">
-                    <a href={this.state.articles[i].link}>{this.state.articles[i].title} </a>
+                    <a href={this.state.articles[i].link} target="_blank">{this.state.articles[i].title} </a>
                 </span>
               </div>
             </div>
@@ -272,7 +272,7 @@ class App extends React.Component {
                     <div className="row">
                         <div className="col s12">
                             <h4 className="center header text_h2">
-                                Κάνεις τα πρώτα σου βήματα στην επιστήμη της ψυχολογίας και θέλεις να αποκτήσεις εμπειρία στην αρθρογραφία πάνω σε θέματα σωματικής και ψυχικής υγείας; Η ευκαιρία να βελτιώσεις τις γνώσεις σου και να αποκτήσεις νέες δεξιότητες είναι εδώ! Το WellnessLab ψάχνει εθελοντές/ριες για την συγγραφή άρθρων βασισμένων σε σχετική επιστημονική βιβλιογραφία! Στείλε μας μέσω e-mail στο <a href = "mailto: wellnesslab.psy@gmail.com">wellnesslab.psy@gmail.com</a> ένα κείμενο 300 λέξεων για ένα ζήτημα ψυχολογίας που σε απασχολεί και θα έχεις σύντομα απάντηση από εμάς!
+                                Κάνεις τα πρώτα σου βήματα στην επιστήμη της ψυχολογίας και θέλεις να αποκτήσεις εμπειρία στην αρθρογραφία πάνω σε θέματα σωματικής και ψυχικής υγείας; Η ευκαιρία να βελτιώσεις τις γνώσεις σου και να αποκτήσεις νέες δεξιότητες είναι εδώ! Το WellnessLab ψάχνει εθελοντές/ριες για την συγγραφή άρθρων βασισμένων σε σχετική επιστημονική βιβλιογραφία! Στόχος είναι η μηνιαία συγγραφή ενός άρθρου που θα συνοδεύεται από τα αντίστοιχα tips και suggestions ακολουθώντας το στυλ των σελίδων μας στα social media. Στείλε μας μέσω e-mail στο <a href = "mailto: wellnesslab.psy@gmail.com">wellnesslab.psy@gmail.com</a> ένα κείμενο 300 λέξεων για ένα ζήτημα ψυχολογίας που σε απασχολεί και θα έχεις σύντομα απάντηση από εμάς!
                             </h4>
                         </div>
                     </div>
