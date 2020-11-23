@@ -2,6 +2,9 @@ import React from 'react';
 import './App.css';
 import Anastasia from './anastasia_aivatoglou.png'
 import Chrysoula from './chrysoula_grigoropoulou.png'
+import georgia from './georgia_pantazi.png'
+import ioanna from './ioanna_koutsiona.png'
+import maria from './maria_dimitriadou.png'
 import Cover from './cover.jpg'
 import Facebook from './facebook.png'
 import Twitter from './twitter.png'
@@ -9,6 +12,12 @@ import Instagram from './instagram.png'
 import LinkedIn from './linkedin.png'
 import Email from './email.png'
 import ReactGA from 'react-ga';
+import Typist from 'react-typist';
+import Ripples from 'react-ripples'
+
+import WebFont from "webfontloader";
+import { Layout, Header, Navigation, Drawer, Content, Grid, Cell, Card, CardTitle, Button, CardActions } from 'react-mdl';
+
 
 class App extends React.Component {
 
@@ -18,7 +27,7 @@ class App extends React.Component {
         articles: [],
         team: [
             {
-                name: "Αναστασία Αιβάτογλου",
+                name: "Αναστασία\nΑιβάτογλου",
                 image: Anastasia,
                 title: "Co-founder",
                 social: [
@@ -53,6 +62,60 @@ class App extends React.Component {
                         url: "mailto:grigoropoulou.chrys@gmail.com\n"
                     }
                 ]
+            }, {
+                name: "Μαρία\nΔημητριάδου",
+                image: maria,
+                title: "Content writer",
+                social: [
+                    {
+                        type: "facebook",
+                        url: "https://www.facebook.com/profile.php?id=100005508162148"
+                    },
+                    {
+                        type: "instagram",
+                        url: "https://www.instagram.com/maria_dmtr/"
+                    },
+                    {
+                        type: "mail",
+                        url: "mailto:dimitriadoumaria00@gmail.com"
+                    }
+                ]
+            }, {
+                name: "Γεωργία\nΠανταζή",
+                image: georgia,
+                title: "Content writer",
+                social: [
+                    {
+                        type: "facebook",
+                        url: "https://www.facebook.com/profile.php?id=100019096519794"
+                    },
+                    {
+                        type: "mail",
+                        url: "mailto:geopantazi96@gmail.com\n"
+                    },
+                    {
+                        type: "linkedin",
+                        url: "https://www.linkedin.com/in/georgia-pantazi-6072a3200/"
+                    }
+                ]
+            }, {
+                name: "Ιωάννα\nΚουτσιώνα",
+                image: ioanna,
+                title: "Content writer",
+                social: [
+                    {
+                        type: "facebook",
+                        url: "https://www.facebook.com/profile.php?id=100000424791709"
+                    },
+                    {
+                        type: "instagram",
+                        url: "https://www.instagram.com/ioannakoutsiona/"
+                    },
+                    {
+                        type: "linkedin",
+                        url: "https://www.linkedin.com/in/ioanna-koutsiona-529797193?fbclid=IwAR2K7zJCylS4lNfR1Yimq0wno-gidwbC4K6vAphs1KvNRKvjdtsvlDSsRRE"
+                    }
+                ]
             }
         ],
         socialMedia: [
@@ -75,16 +138,17 @@ class App extends React.Component {
         ]
     };
 
+    WebFont.load({google: {families: ["Roboto:100,300,400,500"]}});
     ReactGA.initialize('UA-176319397-1');
     ReactGA.pageview('/home');
   }
 
   componentDidMount() {
-    fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@wellnesslab.psy")
+    fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@wellnesslab-psy")
         .then(res => res.json())
         .then(
             (result) => {
-              //console.log(result);
+              console.log(result);
               this.setState({
                 articles: result.items
               });
@@ -99,20 +163,21 @@ class App extends React.Component {
     const socialItems = [];
 
     for (let i=0; i<this.state.articles.length; i++) {
-      articleItems.push(
-          <div className="col s12 m4 l4">
-            <div className="card">
-              <div className="card-image waves-effect waves-block waves-light">
-                <img className="activator" src={this.state.articles[i].thumbnail} style={{width: "100%", height: "600px",  objectFit: "none", objectPosition: "center" }}/>
-              </div>
-              <div className="card-content">
-                <span className="card-title activator grey-text text-darken-4">
-                    <a href={this.state.articles[i].link} target="_blank">{this.state.articles[i].title} </a>
-                </span>
-              </div>
+        articleItems.push(
+            <div style={{flexGrow: '1', padding: '10px'}}>
+                <Card shadow={0} style={{width: '450px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
+                    <CardTitle style={{color: '#fff', height: '600px', background: 'url('+this.state.articles[i].thumbnail+') center / cover'}}/>
+
+                    <Ripples during={600}>
+                        <div style={{width: '450px', height: '120px'}}>
+                            <div style={{fontFamily: 'Roboto', fontSize: '25px', lineHeight: '30px', marginLeft: '15px', marginRight: '15px', marginTop: '30px', fontWeight: '500', color: 'rgb(99, 148, 140)'}}>
+                                {this.state.articles[i].title}
+                            </div>
+                        </div>
+                    </Ripples>
+                </Card>
             </div>
-          </div>
-      );
+        );
     }
 
     for (let i=0; i<this.state.team.length; i++) {
@@ -127,7 +192,9 @@ class App extends React.Component {
                                 ? "fa fa-twitter"
                                 : this.state.team[i].social[j].type == "linkedin"
                                     ? "fa fa-linkedin"
-                                    : "fa fa-envelope-o"
+                                    : this.state.team[i].social[j].type == "instagram"
+                                        ? "fa fa-instagram"
+                                        : "fa fa-envelope-o"
                     }></i>
                 </a>
             )
@@ -186,130 +253,106 @@ class App extends React.Component {
 
     return (
         <div className="App">
-
-          <div id="top" className="scrollspy">
-            <div id="loader-wrapper">
-              <div id="loader"></div>
-              <div className="loader-section section-left"></div>
-              <div className="loader-section section-right"></div>
-            </div>
-          </div>
-
-          <div className="navbar-fixed">
-            <nav id="nav_f" className="default_color" role="navigation">
-              <div className="container">
-                <div className="nav-wrapper">
-                  <ul className="hide-on-med-and-down">
-                    <li><a href="#intro">WellnessLab</a></li>
-                    <li><a href="#articles">Άρθρα</a></li>
-                    <li><a href="#social">Social Media</a></li>
-                    <li><a href="#team">Ομάδα</a></li>
-                  </ul>
-                  <ul id="nav-mobile" className="side-nav">
-                    <li><a href="#intro">WellnessLab</a></li>
-                    <li><a href="#articles">Άρθρα</a></li>
-                    <li><a href="#social">Social Media</a></li>
-                    <li><a href="#team">Ομάδα</a></li>
-                  </ul>
-                  <a href="#" data-activates="nav-mobile" className="button-collapse"><i className="mdi-navigation-menu"></i></a>
-                </div>
-              </div>
-            </nav>
-          </div>
-
-          <div className="section no-pad-bot" id="index-banner">
-            <div className="container">
-              <h1 className="text_h center header cd-headline letters type">
-                <span>WellnessLab </span>
-                <span className="cd-words-wrapper waiting">
-                  <b className="is-visible">για υγιές σώμα</b>
-                  <b>για υγιή ψυχή</b>
-                </span>
-              </h1>
-            </div>
-          </div>
-
-          <div id="intro" className="section scrollspy">
-            <div className="container">
-              <div className="row">
-                <div className="col s12">
-
-                  <h2 className="center header text_h2">
-                    Το WellnessLab σας ενημερώνει για θέματα σωματικής υγείας και πώς αυτά επηρεάζουν την ψυχική μας υγεία. Προωθεί την προσωπική και συλλογική ευημερία και στοχεύει στην παροχή υποστήριξης σε ζητήματα που αφορούν τη σωματική και ψυχική ευεξία.
-                  </h2>
-
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div className="section scrollspy" id="work">
-            <div className="container">
-              <h2 className="header text_b">Άρθρα</h2>
-              <div className="row">
-                {articleItems}
-              </div>
-            </div>
-          </div>
-
-            <div className="section scrollspy" id="work">
-                <div className="container">
-                    <h2 className="header text_b">Εμπειρίες Υγείας</h2>
-                    <div className="row">
-                        <div className="col s12">
-                            <h4 className="center header text_h2">
-                                Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
-                            </h4>
+            <div>
+                <Layout fixedHeader>
+                    <Header title="Title" style={{color: 'white'}}>
+                        <Navigation>
+                            <a href="#">Link</a>
+                            <a href="#">Link</a>
+                            <a href="#">Link</a>
+                            <a href="#">Link</a>
+                        </Navigation>
+                    </Header>
+                    <Drawer title="Title">
+                        <Navigation>
+                            <a href="#">Link</a>
+                            <a href="#">Link</a>
+                            <a href="#">Link</a>
+                            <a href="#">Link</a>
+                        </Navigation>
+                    </Drawer>
+                    <Content>
+                        <div id="intro" className="section scrollspy" style={{paddingLeft: '15%', paddingRight: '15%', paddingTop: '100px', paddingBottom: '100px'}}>
+                            <h1 style={{fontFamily: 'Roboto', fontWeight: '100'}}>
+                                Το WellnessLab σας ενημερώνει για θέματα σωματικής υγείας και πώς αυτά επηρεάζουν την ψυχική μας υγεία. Προωθεί την προσωπική και συλλογική ευημερία και στοχεύει στην παροχή υποστήριξης σε ζητήματα που αφορούν τη σωματική και ψυχική ευεξία.
+                            </h1>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div className="section scrollspy" id="work">
-                <div className="container">
-                    <h2 className="header text_b">Εθελοντές Αρθρογράφοι</h2>
-                    <div className="row">
-                        <div className="col s12">
-                            <h4 className="center header text_h2">
-                                Κάνεις τα πρώτα σου βήματα στην επιστήμη της ψυχολογίας και θέλεις να αποκτήσεις εμπειρία στην αρθρογραφία πάνω σε θέματα σωματικής και ψυχικής υγείας; Η ευκαιρία να βελτιώσεις τις γνώσεις σου και να αποκτήσεις νέες δεξιότητες είναι εδώ! Το WellnessLab ψάχνει εθελοντές/ριες για την συγγραφή άρθρων βασισμένων σε σχετική επιστημονική βιβλιογραφία! Στόχος είναι η μηνιαία συγγραφή ενός άρθρου που θα συνοδεύεται από τα αντίστοιχα tips και suggestions ακολουθώντας το στυλ των σελίδων μας στα social media. Στείλε μας μέσω e-mail στο <a href = "mailto: wellnesslab.psy@gmail.com">wellnesslab.psy@gmail.com</a> ένα κείμενο 300 λέξεων για ένα ζήτημα ψυχολογίας που σε απασχολεί και θα έχεις σύντομα απάντηση από εμάς!
-                            </h4>
+                        <div id="arthra">
+                            <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: '400'}}>Άρθρα</h2>
+                            <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}> {articleItems} </div>
                         </div>
+
+
+                    </Content>
+
+                </Layout>
+            </div>
+            {
+                /*
+                <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+                <header className="mdl-layout__header" style={{background: '#63948C'}}>
+                    <div className="mdl-layout__header-row">
+                        <span className="mdl-layout-title">WellnessLab</span>
+                        <div className="mdl-layout-spacer"></div>
                     </div>
-                </div>
+                </header>
+
+                <main className="mdl-layout__content">
+                    <div className="page-content">
+
+                        */
+
+
+                        /*
+                        <div className="section scrollspy" id="health_experiences">
+                            <div className="container">
+                                <h2 className="header text_b">Εμπειρίες Υγείας</h2>
+                                <div className="row">
+                                    <div className="col s12">
+                                        <h4 className="center header text_h2">
+                                            Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="parallax-container">
+                            <div className="parallax"><img src={Cover}/></div>
+                        </div>
+
+                        <div id="social_media" className="section scrollspy">
+                            <div className="container">
+                                <h2 className="header text_b"> Social Media </h2>
+                                <div className="row"> {socialItems}</div>
+                            </div>
+                        </div>
+
+                        <div className="section scrollspy" id="team">
+                            <div className="container">
+                                <h2 className="header text_b"> Ομάδα </h2>
+                                <div className="row"> {teamItems}</div>
+                            </div>
+                        </div>
+
+                        <footer id="contact" className="page-footer default_color scrollspy">
+                            <div className="container">
+                                <div className="row">
+
+                                </div>
+                            </div>
+                            <div className="footer-copyright default_color">
+                                <div className="container">
+                                </div>
+                            </div>
+                        </footer>
+
+                    </div>
+                </main>
             </div>
-
-
-            <div className="parallax-container">
-            <div className="parallax"><img src={Cover}/></div>
-          </div>
-
-          <div id="intro" className="section scrollspy">
-            <div className="container">
-              <h2 className="header text_b"> Social Media </h2>
-              <div className="row"> {socialItems}</div>
-            </div>
-          </div>
-
-          <div className="section scrollspy" id="team">
-            <div className="container">
-              <h2 className="header text_b"> Ομάδα </h2>
-              <div className="row"> {teamItems}</div>
-            </div>
-          </div>
-
-          <footer id="contact" className="page-footer default_color scrollspy">
-            <div className="container">
-              <div className="row">
-
-              </div>
-            </div>
-            <div className="footer-copyright default_color">
-              <div className="container">
-              </div>
-            </div>
-          </footer>
-
+                */
+            }
         </div>
     );
   }
