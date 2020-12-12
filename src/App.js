@@ -1,23 +1,39 @@
 import React from 'react';
+import { Layout, Header, Content, Card, CardTitle } from 'react-mdl';
+
 import './App.css';
+import Ripples from 'react-ripples'
+import WebFont from "webfontloader"
+import { Parallax } from "react-parallax";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFacebook, faTwitter, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
+import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
+import firebase from 'firebase/app';
+import firestore from 'firebase/firestore'
+
+//Images
 import Anastasia from './anastasia_aivatoglou.png'
 import Chrysoula from './chrysoula_grigoropoulou.png'
 import georgia from './georgia_pantazi.png'
 import ioanna from './ioanna_koutsiona.png'
 import maria from './maria_dimitriadou.png'
-import Cover from './cover.jpg'
 import Facebook from './facebook.png'
 import Twitter from './twitter.png'
 import Instagram from './instagram.png'
 import LinkedIn from './linkedin.png'
+import logo from './logo_white.png'
+import cover from './cover.jpg'
 import Email from './email.png'
-import ReactGA from 'react-ga';
-import Typist from 'react-typist';
-import Ripples from 'react-ripples'
 
-import WebFont from "webfontloader";
-import { Layout, Header, Navigation, Drawer, Content, Grid, Cell, Card, CardTitle, Button, CardActions } from 'react-mdl';
-
+const firebaseConfig = {
+    apiKey: "AIzaSyDY9zLRl7EOpKR02SWCGpwW2jkrh-YU2uY",
+    authDomain: "wellness-lab.firebaseapp.com",
+    projectId: "wellness-lab",
+    storageBucket: "wellness-lab.appspot.com",
+    messagingSenderId: "885154242879",
+    appId: "1:885154242879:web:0986faa0998be6476e338a",
+    measurementId: "G-P1FY85Q6PG"
+};
 
 class App extends React.Component {
 
@@ -139,19 +155,43 @@ class App extends React.Component {
     };
 
     WebFont.load({google: {families: ["Roboto:100,300,400,500"]}});
-    ReactGA.initialize('UA-176319397-1');
-    ReactGA.pageview('/home');
+
+      // Initialize Firebase
+      if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+      }else {
+          firebase.app(); // if already initialized, use that one
+      }
   }
 
   componentDidMount() {
-    fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@wellnesslab-psy")
+
+      const snapshot = firebase.firestore().collection('articles').get().then((snapshot) => {
+          var articlesArray = []
+          snapshot.forEach((doc) => {
+              articlesArray.push({
+                  'title': doc.data().title,
+                  'imgUrl': doc.data().imgUrl,
+                  'articleUrl': doc.data().articleUrl
+              })
+          });
+
+          console.log(articlesArray);
+
+          this.setState({
+              articles: articlesArray
+          })
+      })
+
+
+      fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@wellnesslab-psy")
         .then(res => res.json())
         .then(
             (result) => {
               console.log(result);
-              this.setState({
-                articles: result.items
-              });
+              //this.setState({
+              //  articles: result.items
+              //});
             },
             (error) => { }
         )
@@ -166,12 +206,11 @@ class App extends React.Component {
         articleItems.push(
             <div style={{flexGrow: '1', padding: '10px'}}>
                 <Card shadow={0} style={{width: '450px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
-                    <CardTitle style={{color: '#fff', height: '600px', background: 'url('+this.state.articles[i].thumbnail+') center / cover'}}/>
-
-                    <Ripples during={600}>
+                    <CardTitle style={{color: '#fff', height: '600px', background: 'url('+this.state.articles[i].imgUrl+') center / cover'}}/>
+                    <Ripples during={600} color={'rgb(99, 148, 140, 0.3)'}>
                         <div style={{width: '450px', height: '120px'}}>
-                            <div style={{fontFamily: 'Roboto', fontSize: '25px', lineHeight: '30px', marginLeft: '15px', marginRight: '15px', marginTop: '30px', fontWeight: '500', color: 'rgb(99, 148, 140)'}}>
-                                {this.state.articles[i].title}
+                            <div style={{fontFamily: 'Roboto', fontSize: '24px', lineHeight: '30px', marginLeft: '15px', marginRight: '15px', marginTop: '30px'}}>
+                                <a target={"_blank"} href={this.state.articles[i].articleUrl} style={{textDecoration:'none', color: 'black'}}>{this.state.articles[i].title}</a>
                             </div>
                         </div>
                     </Ripples>
@@ -180,74 +219,70 @@ class App extends React.Component {
         );
     }
 
+    for (let i=0; i<this.state.socialMedia.length; i++) {
+        socialItems.push(
+            <div style={{flexGrow: '1', padding: '10px'}}>
+                <Card shadow={0} style={{width: '250px',height: '250px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
+                    <img style={{width: '150px', height: '150px', padding: '30px'}}src={
+                        this.state.socialMedia[i].name == "Facebook"
+                            ? Facebook
+                            : this.state.socialMedia[i].name == "Twitter"
+                                ? Twitter
+                                : this.state.socialMedia[i].name == "Instagram"
+                                    ? Instagram
+                                    : this.state.socialMedia[i].name == "LinkedIn"
+                                        ? LinkedIn
+                                        : Email
+                    }/>
+                    <div style={{fontFamily: 'Roboto', fontSize: '25px', lineHeight: '30px', fontWeight: '500', color: 'rgb(99, 148, 140)'}}>
+                        <a target={"_blank"} href={this.state.socialMedia[i].url} style={{textDecoration:'none'}}>{this.state.socialMedia[i].name}</a>
+                    </div>
+                </Card>
+            </div>
+          )
+      }
+
     for (let i=0; i<this.state.team.length; i++) {
         const personSocial = [];
         for (let j=0; j<this.state.team[i].social.length; j++) {
             personSocial.push(
-                <a className="blue-text text-lighten-2" href={this.state.team[i].social[j].url} style={{padding: 5}}>
-                    <i className={
+                <a href={this.state.team[i].social[j].url} >
+                    <FontAwesomeIcon icon={
                         this.state.team[i].social[j].type == "facebook"
-                            ? "fa fa-facebook"
-                            : this.state.team[i].social[j].type == "twitter"
-                                ? "fa fa-twitter"
-                                : this.state.team[i].social[j].type == "linkedin"
-                                    ? "fa fa-linkedin"
-                                    : this.state.team[i].social[j].type == "instagram"
-                                        ? "fa fa-instagram"
-                                        : "fa fa-envelope-o"
-                    }></i>
+                            ? faFacebook
+                            : this.state.team[i].social[j].type == "linkedin"
+                                ? faLinkedin
+                                : this.state.team[i].social[j].type == "instagram"
+                                    ? faInstagram
+                                    : this.state.team[i].social[j].type == "mail"
+                                        ? faMailBulk
+                                        : faTwitter
+                    } style={{padding: 15, color:'rgb(99, 148, 140)'}}/>
+
                 </a>
             )
         }
 
         teamItems.push(
-          <div className="col s12 m3">
-              <div className="card card-avatar">
-                  <div className="waves-effect waves-block waves-light">
-                      <img className="activator" src={this.state.team[i].image}/>
-                  </div>
-                  <div className="card-content">
-                        <span className="card-title activator grey-text text-darken-4">
-                            {this.state.team[i].name}<br/>
-                            <small>
-                                <em>
-                                    <a className="red-text text-darken-1" href="#">{this.state.team[i].title}</a>
-                                </em>
-                            </small>
-                        </span>
-                      <p>{personSocial}</p>
-                  </div>
-              </div>
-          </div>
-      )
-    }
+          <div style={{flexGrow: '1', padding: '10px'}}>
+              <Card  shadow={0} style={{width: '250px',height: '330px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
+                  <img style={{width: '150px', height: '150px', padding: '30px'}} src={this.state.team[i].image}/>
+                  <div style={{fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: '500', color: 'rgb(99, 148, 140)', paddding: '30px'}}>
+                      <p>
+                          <div style={{fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: '500', color: 'rgb(99, 148, 140)'}}>
+                            {this.state.team[i].name}
+                          </div>
+                          <div style={{fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: '400', color: 'rgb(255,63,128)', marginTop: '10px'}}>
+                              {this.state.team[i].title}
+                          </div>
 
-    for (let i=0; i<this.state.socialMedia.length; i++) {
-        socialItems.push(
-            <div className="col s12 m3">
-                <div className="card card-avatar">
-                    <div className="waves-effect waves-block waves-light">
-                        <img src={
-                            this.state.socialMedia[i].name == "Facebook"
-                                ? Facebook
-                                : this.state.socialMedia[i].name == "Twitter"
-                                    ? Twitter
-                                    : this.state.socialMedia[i].name == "Instagram"
-                                        ? Instagram
-                                        : this.state.socialMedia[i].name == "LinkedIn"
-                                            ? LinkedIn
-                                            : Email
-                        }/>
-                    </div>
-                    <div className="card-content">
-                        <span className="card-title activator grey-text text-darken-4">
-                            <em>
-                                <a className="red-text text-darken-1" href={this.state.socialMedia[i].url}>{this.state.socialMedia[i].name}</a>
-                            </em>
-                        </span>
-                    </div>
-                </div>
-            </div>
+                      </p>
+                      <div>
+                          {personSocial}
+                      </div>
+                  </div>
+              </Card>
+          </div>
         )
     }
 
@@ -255,22 +290,10 @@ class App extends React.Component {
         <div className="App">
             <div>
                 <Layout fixedHeader>
-                    <Header title="Title" style={{color: 'white'}}>
-                        <Navigation>
-                            <a href="#">Link</a>
-                            <a href="#">Link</a>
-                            <a href="#">Link</a>
-                            <a href="#">Link</a>
-                        </Navigation>
+                    <Header title={"WellnessLab"} style={{color: 'white', backgroundColor: 'rgb(99, 148, 140)'}}>
+                        <img src={logo} style={{height: '100%'}}/>
                     </Header>
-                    <Drawer title="Title">
-                        <Navigation>
-                            <a href="#">Link</a>
-                            <a href="#">Link</a>
-                            <a href="#">Link</a>
-                            <a href="#">Link</a>
-                        </Navigation>
-                    </Drawer>
+
                     <Content>
                         <div id="intro" className="section scrollspy" style={{paddingLeft: '15%', paddingRight: '15%', paddingTop: '100px', paddingBottom: '100px'}}>
                             <h1 style={{fontFamily: 'Roboto', fontWeight: '100'}}>
@@ -278,81 +301,47 @@ class App extends React.Component {
                             </h1>
                         </div>
 
-                        <div id="arthra">
+                        <div id="arthra" style={{backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'}}>
                             <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: '400'}}>Άρθρα</h2>
                             <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}> {articleItems} </div>
                         </div>
 
+                        <div id="health_experiences" style={{paddingTop: '30px', paddingBottom: '30px'}}>
+                            <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: '400'}}>Εμπειρίες Υγείας</h2>
+                            <h4 style={{fontFamily: 'Roboto', fontWeight: '100'}}>
+                                Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
+                            </h4>
+                        </div>
+
+                        <div className="parallax-container">
+                            <Parallax
+                                bgImage={cover}
+                                blur={{ min: -15, max: 15 }}
+                                strength={300}>
+                                    <div style={{height: '600px'}}/>
+                            </Parallax>
+                        </div>
+
+                        <div id="social_media" style={{paddingTop: '30px', paddingBottom: '30px'}} >
+                            <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: '400'}}> Social Media </h2>
+                            <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}>
+                                {socialItems}
+                            </div>
+                        </div>
+
+                        <div id="team" style={{backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'}}>
+                            <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: '400'}}> Ομάδα </h2>
+                            <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}>
+                                {teamItems}
+                            </div>
+                        </div>
+
+                        <div style={{height: '100px', backgroundColor: 'rgb(99, 148, 140)'}}></div>
 
                     </Content>
 
                 </Layout>
             </div>
-            {
-                /*
-                <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-                <header className="mdl-layout__header" style={{background: '#63948C'}}>
-                    <div className="mdl-layout__header-row">
-                        <span className="mdl-layout-title">WellnessLab</span>
-                        <div className="mdl-layout-spacer"></div>
-                    </div>
-                </header>
-
-                <main className="mdl-layout__content">
-                    <div className="page-content">
-
-                        */
-
-
-                        /*
-                        <div className="section scrollspy" id="health_experiences">
-                            <div className="container">
-                                <h2 className="header text_b">Εμπειρίες Υγείας</h2>
-                                <div className="row">
-                                    <div className="col s12">
-                                        <h4 className="center header text_h2">
-                                            Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="parallax-container">
-                            <div className="parallax"><img src={Cover}/></div>
-                        </div>
-
-                        <div id="social_media" className="section scrollspy">
-                            <div className="container">
-                                <h2 className="header text_b"> Social Media </h2>
-                                <div className="row"> {socialItems}</div>
-                            </div>
-                        </div>
-
-                        <div className="section scrollspy" id="team">
-                            <div className="container">
-                                <h2 className="header text_b"> Ομάδα </h2>
-                                <div className="row"> {teamItems}</div>
-                            </div>
-                        </div>
-
-                        <footer id="contact" className="page-footer default_color scrollspy">
-                            <div className="container">
-                                <div className="row">
-
-                                </div>
-                            </div>
-                            <div className="footer-copyright default_color">
-                                <div className="container">
-                                </div>
-                            </div>
-                        </footer>
-
-                    </div>
-                </main>
-            </div>
-                */
-            }
         </div>
     );
   }
