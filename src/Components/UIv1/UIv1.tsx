@@ -301,7 +301,6 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
 
         return (
             <div className="App">
-                <WLToolbar/>
                 <div>
                     <Layout fixedHeader>
                         <Header title={"WellnessLab"} style={{color: 'white', backgroundColor: 'rgb(99, 148, 140)'}}>
