@@ -1,8 +1,10 @@
 import React from 'react';
+import { Ripple } from 'rmwc';
 
 type WLToolbarItemProps = {
     name: string,
     link: string,
+    activePage: string
     onPageSelected: (page: string) => void
 }
 
@@ -41,15 +43,17 @@ class WLToolbarItem extends React.Component<WLToolbarItemProps, WLToolbarItemSta
 
     render() {
         return (
-            <div style={this.styles.container} onClick={this.onClick}>
-                <p
-                    style={this.state.isHovering ? this.styles.textHover : this.styles.textNotHover}
-                    onMouseEnter={this.onMouseEnter}
-                    onMouseLeave={this.onMouseLeave}
-                    onClick={this.onClick}>
-                    {this.props.name}
-                </p>
-            </div>
+            <Ripple>
+                <div style={this.styles.container} onClick={this.onClick}>
+                    <p
+                        style={this.state.isHovering ? this.styles.textHover : this.props.activePage === this.props.name ? this.styles.textActive : this.styles.textNotHover}
+                        onMouseEnter={this.onMouseEnter}
+                        onMouseLeave={this.onMouseLeave}
+                        onClick={this.onClick}>
+                        {this.props.name}
+                    </p>
+                </div>
+            </Ripple>
         )
     }
 
@@ -59,10 +63,16 @@ class WLToolbarItem extends React.Component<WLToolbarItemProps, WLToolbarItemSta
             paddingRight: 10,
             paddingTop: 5,
             paddingBottom: 5,
-            cursor: 'pointer'
+            cursor: 'pointer',
+            height: 35
         },
         textHover: {
             color: 'red',
+            fontSize: '25px',
+            lineHeight: '30px'
+        },
+        textActive: {
+            color: '#63948C',
             fontSize: '25px',
             lineHeight: '30px'
         },

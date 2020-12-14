@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Subjects extends React.Component<{ }, {}> {
+class Videos extends React.Component<{ }, {}> {
 
     constructor(props: {}, state: {}) {
         super(props, state);
@@ -10,6 +10,7 @@ class Subjects extends React.Component<{ }, {}> {
     render() {
         return (
             <div style={this.styles.container}>
+                <h1>VIDEOS</h1>
             </div>
         )
     }
@@ -17,9 +18,9 @@ class Subjects extends React.Component<{ }, {}> {
     styles = {
         container: {
             flex: 1,
-            background: 'blue'
+            background: 'white'
         }
     }
 }
 
-export default Subjects
+export default Videos
