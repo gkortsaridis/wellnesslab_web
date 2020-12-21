@@ -8,6 +8,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
+    "@material-ui/core": "^4.11.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -20,6 +21,7 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",
     "react-mdl": "^2.1.0",
+    "react-multiple-image-input": "^1.0.0",
     "react-parallax": "^3.1.2",
     "react-ripples": "^2.2.1",
     "react-router-dom": "^5.2.0",
@@ -57,6 +59,7 @@
   },
   "devDependencies": {
     "@types/react-mdl": "^1.7.27",
+    "@types/react-router-dom": "^5.1.6",
     "@types/webfontloader": "^1.6.32",
     "gh-pages": "^3.1.0"
   }

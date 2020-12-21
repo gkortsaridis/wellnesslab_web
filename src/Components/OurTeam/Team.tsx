@@ -115,10 +115,10 @@ class Team extends React.Component<{ }, {}> {
 
 
     render() {
-        const teamItems = []
+        const teamItems: JSX.Element[] = []
 
         for (let i=0; i<this.team.length; i++) {
-            const personSocial = [];
+            const personSocial: JSX.Element[] = [];
             for (let j=0; j<this.team[i].social.length; j++) {
                 personSocial.push(
                     <a href={this.team[i].social[j].url} >

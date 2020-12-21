@@ -37,22 +37,21 @@ class Subjects extends React.Component<{ }, OurSubjectsState> {
 
 
     render() {
-        const articleItems = [];
+        const articleItems: JSX.Element[]= [];
         for (let i=0; i<this.state.articles.length; i++) {
-            articleItems.push(
-                <div style={this.styles.cardContainer}>
-                    <Card shadow={0} style={this.styles.card}>
-                        <CardTitle style={{...{background: 'url('+this.state.articles[i].imgUrl+') center / cover'}, ...this.styles.cardImage}}/>
-                        <Ripples during={600} color={'rgb(99, 148, 140, 0.3)'}>
-                            <div style={this.styles.titleContainer}>
-                                <div style={this.styles.titleContainer2}>
-                                    <a target={"_blank"} href={this.state.articles[i].articleUrl} style={this.styles.text}>{this.state.articles[i].title}</a>
-                                </div>
+            const articleItem =  <div style={this.styles.cardContainer}>
+                <Card shadow={0} style={this.styles.card}>
+                    <CardTitle style={{...{background: 'url('+this.state.articles[i].imgUrl+') center / cover'}, ...this.styles.cardImage}}/>
+                    <Ripples during={600} color={'rgb(99, 148, 140, 0.3)'}>
+                        <div style={this.styles.titleContainer}>
+                            <div style={this.styles.titleContainer2}>
+                                <a target={"_blank"} href={this.state.articles[i].articleUrl} style={this.styles.text}>{this.state.articles[i].title}</a>
                             </div>
-                        </Ripples>
-                    </Card>
-                </div>
-            );
+                        </div>
+                    </Ripples>
+                </Card>
+            </div>
+            articleItems.push(articleItem);
         }
 
         return (

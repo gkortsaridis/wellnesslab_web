@@ -1,11 +1,15 @@
 import React from 'react';
+import firebase from "firebase";
+import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch, useParams } from "react-router-dom";
+
 import WLToolbar from "./WLToolbar/WLToolbar";
 import Home from "./OurHome/Home";
 import Subjects from "./OurSubjects/Subjects";
 import Actions from "./OurActions/Actions";
 import Videos from "./OurVideos/Videos";
 import Team from "./OurTeam/Team";
-import firebase from "firebase";
+import UIv1 from "./UIv1/UIv1";
+import AdminPanel from "./Admin/AdminPanel";
 
 type WellnessLabAppState = {
     activePage: string;
@@ -42,20 +46,34 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
 
     render() {
         return (
-            <div style={this.styles.container}>
-                <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/>
-                {
-                    this.state.activePage === 'Αρχική'
-                        ? <Home/>
-                        : this.state.activePage === 'Θέματα'
-                            ? <Subjects/>
-                            : this.state.activePage === 'Δράσεις'
-                                ? <Actions/>
-                                : this.state.activePage === 'Βίντεο'
-                                    ? <Videos/>
-                                    : <Team/>
-                }
-            </div>
+            <Router>
+                <Switch>
+                    <Route exact path="/dev">
+
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/>
+                            {
+                                this.state.activePage === 'Αρχική'
+                                    ? <Home/>
+                                    : this.state.activePage === 'Θέματα'
+                                    ? <Subjects/>
+                                    : this.state.activePage === 'Δράσεις'
+                                        ? <Actions/>
+                                        : this.state.activePage === 'Βίντεο'
+                                            ? <Videos/>
+                                            : <Team/>
+                            }
+                        </div>
+
+                    </Route>
+                    <Route exact path="/admin">
+                        <AdminPanel/>
+                    </Route>
+                    <Route path="/">
+                        <UIv1/>
+                    </Route>
+                </Switch>
+            </Router>
         )
     }
 

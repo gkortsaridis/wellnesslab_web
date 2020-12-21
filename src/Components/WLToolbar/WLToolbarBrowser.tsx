@@ -46,7 +46,8 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
 
     stylesBrowser = {
         container: {
-            backgroundImage:`url(${coverImg})`,
+            //backgroundImage:`url(${coverImg})`,
+            backgroundColor: '#63948C',
             backgroundSize: 'cover',
             display: 'flex',
             flexDirection: 'column' as 'column'

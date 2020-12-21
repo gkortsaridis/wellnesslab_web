@@ -211,9 +211,9 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
     }
 
     render() {
-        const articleItems = [];
-        const teamItems = [];
-        const socialItems = [];
+        const articleItems: JSX.Element[] = [];
+        const teamItems: JSX.Element[] = [];
+        const socialItems: JSX.Element[] = [];
 
         for (let i=0; i<this.state.articles.length; i++) {
             articleItems.push(
@@ -256,7 +256,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
         }
 
         for (let i=0; i<this.state.team.length; i++) {
-            const personSocial = [];
+            const personSocial: JSX.Element[] = [];
             for (let j=0; j<this.state.team[i].social.length; j++) {
                 personSocial.push(
                     <a href={this.state.team[i].social[j].url} >
