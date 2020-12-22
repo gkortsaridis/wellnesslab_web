@@ -38,7 +38,7 @@ class WLToolbarItem extends React.Component<WLToolbarItemProps, WLToolbarItemSta
     }
 
     private onClick() {
-        this.props.onPageSelected(this.props.name)
+        this.props.onPageSelected(this.props.link)
     }
 
     render() {
@@ -46,7 +46,7 @@ class WLToolbarItem extends React.Component<WLToolbarItemProps, WLToolbarItemSta
             <Ripple>
                 <div style={this.styles.container} onClick={this.onClick}>
                     <p
-                        style={this.state.isHovering ? this.styles.textHover : this.props.activePage === this.props.name ? this.styles.textActive : this.styles.textNotHover}
+                        style={this.state.isHovering ? this.styles.textHover : this.props.activePage === this.props.link ? this.styles.textActive : this.styles.textNotHover}
                         onMouseEnter={this.onMouseEnter}
                         onMouseLeave={this.onMouseLeave}
                         onClick={this.onClick}>

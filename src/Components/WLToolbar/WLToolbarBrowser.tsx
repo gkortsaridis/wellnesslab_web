@@ -33,11 +33,11 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
                     </TopAppBarRow>
                     <TopAppBarRow>
                         <TopAppBarSection >
-                            <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={""} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={""} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={""} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={""} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={""} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={"/dev/"} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={"/dev/subjects"} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={"/dev/actions"} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={"/dev/video"} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={"/dev/team"} onPageSelected={this.onPageSelected} />
                         </TopAppBarSection>
                     </TopAppBarRow>
                 </TopAppBar>

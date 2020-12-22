@@ -29,7 +29,7 @@ class WLToolbarMobile extends React.Component<WLToolbarProps, WLToolbarMobileSta
     }
 
     private onMenuItemClicked(index: number) {
-        const items = ['Αρχική', 'Θέματα', 'Δράσεις', 'Βίντεο', 'Ομάδα']
+        const items = ['/dev', '/dev/subjects', '/dev/actions', '/dev/video', '/dev/team']
         this.props.onPageSelected(items[index])
     }
 

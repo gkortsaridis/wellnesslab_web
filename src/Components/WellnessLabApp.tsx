@@ -1,6 +1,6 @@
 import * as React from 'react';
 import firebase from "firebase";
-import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch, useParams } from "react-router-dom";
+import {Router, Switch, Route } from "react-router-dom";
 
 import WLToolbar from "./WLToolbar/WLToolbar";
 import Home from "./OurHome/Home";
@@ -10,7 +10,7 @@ import Videos from "./OurVideos/Videos";
 import Team from "./OurTeam/Team";
 import UIv1 from "./UIv1/UIv1";
 import AdminPanel from "./Admin/AdminPanel";
-import {ParallaxProvider} from "react-scroll-parallax";
+import { createBrowserHistory } from 'history'
 
 type WellnessLabAppState = {
     activePage: string;
@@ -28,6 +28,8 @@ const firebaseConfig = {
 
 class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
 
+    private appHistory = createBrowserHistory()
+
     constructor(props: {}, state: WellnessLabAppState) {
         super(props, state);
 
@@ -41,41 +43,45 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
     }
 
     private onPageSelected(page: string) {
-        console.log(page)
-        this.setState({ activePage: page })
+        if(page !== this.appHistory.location.pathname) {
+            this.appHistory.push(page)
+            this.setState({ activePage: page })
+        }
     }
 
     render() {
         return (
-            <ParallaxProvider>
-                <Router>
-                    <Switch>
-                        <Route exact path="/dev">
-                            <div style={this.styles.container}>
-                                <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/>
-                                {
-                                    this.state.activePage === 'Αρχική'
-                                        ? <Home/>
-                                        : this.state.activePage === 'Θέματα'
-                                        ? <Subjects/>
-                                        : this.state.activePage === 'Δράσεις'
-                                            ? <Actions/>
-                                            : this.state.activePage === 'Βίντεο'
-                                                ? <Videos/>
-                                                : <Team/>
-                                }
-                            </div>
-
-                        </Route>
-                        <Route exact path="/adminpanel">
-                            <AdminPanel/>
-                        </Route>
-                        <Route path="/">
-                            <UIv1/>
-                        </Route>
-                    </Switch>
-                </Router>
-            </ParallaxProvider>
+            <Router history={this.appHistory}>
+                <Switch>
+                    <Route exact path="/dev">
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Home/>
+                        </div>
+                    </Route>
+                    <Route exact path="/dev/subjects">
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Subjects/>
+                        </div>
+                    </Route>
+                    <Route exact path="/dev/actions">
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Actions/>
+                        </div>
+                    </Route>
+                    <Route exact path="/dev/video">
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Videos/>
+                        </div>
+                    </Route>
+                    <Route exact path="/dev/team">
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Team/>
+                        </div>
+                    </Route>
+                    <Route exact path="/adminpanel" component={AdminPanel}/>
+                    <Route path="*" component={UIv1}/>
+                </Switch>
+            </Router>
         )
     }
 
