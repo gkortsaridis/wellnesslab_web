@@ -67,18 +67,18 @@ class WLToolbarItem extends React.Component<WLToolbarItemProps, WLToolbarItemSta
             height: 35
         },
         textHover: {
-            color: 'red',
-            fontSize: '25px',
+            color: '#4A6F69',
+            fontSize: '17px',
             lineHeight: '30px'
         },
         textActive: {
-            color: '#63948C',
-            fontSize: '25px',
+            color: '#95DED2',
+            fontSize: '17px',
             lineHeight: '30px'
         },
         textNotHover: {
             color: 'white',
-            fontSize: '25px',
+            fontSize: '17px',
             lineHeight: '30px'
         }
     }

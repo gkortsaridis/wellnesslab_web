@@ -1,6 +1,8 @@
 import * as React from 'react';
+import { TopAppBar, TopAppBarFixedAdjust, TopAppBarRow, TopAppBarSection, TopAppBarTitle } from 'rmwc';
 import logoWhite from "../../Images/logo_white.png";
 import WLToolbarItem from "./WLToolbarItem";
+import {wellnessLabPrimary} from "../../Entities/Colors";
 
 type WLToolbarProps = {
     onPageSelected: (page: string) => void;
@@ -22,54 +24,29 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
     render() {
         return (
             <div style={this.stylesBrowser.container}>
-                <div style={this.stylesBrowser.row1}>
-                    <img src={logoWhite} style={this.stylesBrowser.logo}/>
-                    <div>
-                        <h1 style={this.stylesBrowser.logoText}>WellnessLab</h1>
-                    </div>
-                </div>
-
-                <div style={this.stylesBrowser.row1}>
-                    <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={""} onPageSelected={this.onPageSelected} />
-                    <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={""} onPageSelected={this.onPageSelected} />
-                    <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={""} onPageSelected={this.onPageSelected} />
-                    <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={""} onPageSelected={this.onPageSelected} />
-                    <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={""} onPageSelected={this.onPageSelected} />
-                </div>
-
-                <div style={this.stylesBrowser.fader}/>
-
+                <TopAppBar fixed style={{backgroundColor: wellnessLabPrimary}}>
+                    <TopAppBarRow>
+                        <TopAppBarSection>
+                            <img src={logoWhite} style={this.stylesBrowser.logo}/>
+                            <TopAppBarTitle>WellnessLab</TopAppBarTitle>
+                        </TopAppBarSection>
+                        <TopAppBarSection alignEnd>
+                            <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={""} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={""} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={""} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={""} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={""} onPageSelected={this.onPageSelected} />
+                        </TopAppBarSection>
+                    </TopAppBarRow>
+                </TopAppBar>
+                <TopAppBarFixedAdjust />
             </div>
         )
     }
 
     stylesBrowser = {
-        container: {
-            //backgroundImage:`url(${coverImg})`,
-            backgroundColor: '#63948C',
-            backgroundSize: 'cover',
-            display: 'flex',
-            flexDirection: 'column' as 'column'
-        },
-        row1: {
-            display: 'flex',
-            flexDirection: 'row' as 'row',
-            alignItems: 'center',
-            marginLeft: 10,
-            marginRight: 10
-        },
-        logo: {
-            width: 80,
-            height: 80,
-            margin: 40
-        },
-        logoText: {
-            color: 'white'
-        },
-        fader: {
-            height: 10,
-            background: "linear-gradient(transparent, #ffffff)"
-        }
+        container: {backgroundColor: '#63948C', backgroundSize: 'cover', display: 'flex', flexDirection: 'column' as 'column'},
+        logo: {width: 40, height: 40, marginRight: 20 },
     }
 }
 

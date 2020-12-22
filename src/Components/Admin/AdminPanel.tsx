@@ -10,6 +10,7 @@ import {
     getAllSubjects,
     updateSubject
 } from "../../Repositories/SubjectsRepository";
+import {Article, Subject} from "../../Entities/Entities";
 
 type AdminPanelState = {
     subjects: Subject[],
@@ -85,16 +86,18 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
             id: this.state.activeSubject.id,
             article: updateArticle,
             tips: tipsArr,
-            suggestions: this.state.activeSubject.suggestions
+            suggestions: this.state.activeSubject.suggestions,
+            modifiedDate: Date.now(),
+            createdDate: this.state.activeSubject.createdDate
         }
 
-
-        if(this.state.activeSubject !== emptySubject) {
+        if(this.state.activeSubject.id !== emptySubject.id) {
+            console.log(updatedSubject)
             //Update
             updateSubject(updatedSubject)
                 .then((result) => {
                     console.log(result)
-                    window.location.reload(false)
+                    //window.location.reload(false)
                 })
                 .catch((error) => {
                     console.log(error)
@@ -102,6 +105,7 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
                 })
 
         } else {
+            updatedSubject.createdDate = Date.now()
             //Create
             createSubject(updatedSubject)
                 .then((result) => {

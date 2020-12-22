@@ -1,10 +1,11 @@
 import * as React from 'react';
-import {Card, CardTitle} from "react-mdl";
-import Ripples from "react-ripples";
-import firebase from "firebase";
+import { ParallaxHover } from 'react-parallax-hover';
+
+import {getAllSubjects} from "../../Repositories/SubjectsRepository";
+import {Subject} from "../../Entities/Entities";
 
 type OurSubjectsState = {
-    articles: Article[]
+    subjects: Subject[]
 }
 
 class Subjects extends React.Component<{ }, OurSubjectsState> {
@@ -12,74 +13,58 @@ class Subjects extends React.Component<{ }, OurSubjectsState> {
     constructor(props: {}, state: OurSubjectsState) {
         super(props, state);
 
-        this.state = { articles: [] }
+        this.state = { subjects: [] }
+
+        this.clickedLink = this.clickedLink.bind(this)
     }
 
     componentDidMount() {
-        const snapshot = firebase.firestore().collection('articles').get().then((snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) => {
-            const articlesArray: Article[] = [];
-            snapshot.forEach((doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
-                articlesArray.push({
-                    'title': doc.data().title,
-                    'imgUrl': doc.data().imgUrl,
-                    'articleUrl': doc.data().articleUrl
-                })
-            });
-
-            console.log(articlesArray);
-
-            this.setState({
-                articles: articlesArray
-            })
-        })
-
+        getAllSubjects()
+            .then((subjects: Subject[]) => { this.setState({subjects: subjects}) })
+            .catch((error) => { alert("Παρουσιάστηκε ένα πρόβλημα :(")})
     }
 
+    private clickedLink(link: string) {
+        alert(link)
+    }
 
     render() {
         const articleItems: JSX.Element[]= [];
-        for (let i=0; i<this.state.articles.length; i++) {
-            const articleItem =  <div style={this.styles.cardContainer}>
-                <Card shadow={0} style={this.styles.card}>
-                    <CardTitle style={{...{background: 'url('+this.state.articles[i].imgUrl+') center / cover'}, ...this.styles.cardImage}}/>
-                    <Ripples during={600} color={'rgb(99, 148, 140, 0.3)'}>
-                        <div style={this.styles.titleContainer}>
-                            <div style={this.styles.titleContainer2}>
-                                <a target={"_blank"} href={this.state.articles[i].articleUrl} style={this.styles.text}>{this.state.articles[i].title}</a>
+        for (let i=0; i<this.state.subjects.length; i++) {
+            articleItems.push(
+                <div style={this.styles.itemCardContainer} onClick={(e) => this.clickedLink(this.state.subjects[i].article.articleUrl)}>
+                    <ParallaxHover width={302} height={502} rotation={9} shadow={2} borderRadius={this.cardRadius}>
+                        <div style={this.styles.articleCard}>
+                            <div style={Object.assign({background: 'url('+this.state.subjects[i].imgUrl+') center / cover'}, this.styles.articleImage)}></div>
+                            <div style={this.styles.articleTitleContainer}>
+                                <p style={this.styles.articleTitleText}>{this.state.subjects[i].title}</p>
                             </div>
                         </div>
-                    </Ripples>
-                </Card>
-            </div>
-            articleItems.push(articleItem);
+                    </ParallaxHover>
+                </div>
+            );
         }
+
 
         return (
             <div style={this.styles.container}>
+                <h3 style={this.styles.introText}>Αυτό είναι ένα σύντομο κείμενο που θα περιγραφει τα θέματα</h3>
                 <div style={this.styles.articlesContainer}> {articleItems} </div>
             </div>
         )
     }
 
+    cardRadius = 15
+
     styles = {
-        container: {
-            flex: 1,
-            background: 'white'
-        },
-        articlesContainer: {
-            width: '75%',
-            flexDirection: 'row' as 'row',
-            display: 'flex',
-            flexWrap: 'wrap' as 'wrap',
-            marginLeft: 'auto',
-            marginRight: 'auto'
-        },
-        cardContainer: {flexGrow: 1, padding: '10px'},
-        card: {width: '450px', display: 'block', marginLeft: 'auto', marginRight: 'auto'},
-        cardImage: {color: '#fff', height: '600px'},
-        titleContainer: {width: '450px', height: '120px'},
-        titleContainer2: {fontFamily: 'Roboto', fontSize: '24px', lineHeight: '30px', marginLeft: '15px', marginRight: '15px', marginTop: '30px'},
-        text: {textDecoration:'none', color: 'black'}
+        container: {flex: 1, background: 'white'},
+        introText: {fontFamily: 'Roboto', fontWeight: 100, padding: 20},
+        articlesContainer: {width: '75%', flexDirection: 'row' as 'row', display: 'flex', flexWrap: 'wrap' as 'wrap', marginLeft: 'auto', marginRight: 'auto'},
+        itemCardContainer: {flexGrow: 1, padding: '10px', display: 'flex', flexDirection: 'column' as 'column', justifyContent: 'center' as 'center', alignItems: 'center' as 'center'},
+        articleCard: {borderRadius: this.cardRadius, width: '300px', height: '500px',display: "flex", flexDirection: 'column' as 'column', backgroundColor: 'white', border: '1px solid black'},
+        articleImage: {width: '300px', height: '400px', overflow: 'hidden', borderRadius: this.cardRadius},
+        articleTitleContainer: {width: '300px', height: '100px', backgroundColor: 'white', display: 'table', textAlign: 'center' as 'center', borderRadius: this.cardRadius},
+        articleTitleText: {textDecoration: 'none', color: 'black', textAlign: 'center' as 'center', fontSize: '20px', display: 'table-cell', verticalAlign: 'middle', padding: '5px'},
     }
 }
 

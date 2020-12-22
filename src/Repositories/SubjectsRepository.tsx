@@ -1,7 +1,8 @@
 import firebase from "firebase";
+import {Article, Subject} from "../Entities/Entities";
 
 export const emptyArticle: Article = {title: "", imgUrl: "", articleUrl: ""}
-export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: emptyArticle, suggestions: "", tips: [] }
+export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: emptyArticle, suggestions: "", tips: [], createdDate: Date.now(), modifiedDate: Date.now() }
 
 
  export function getAllSubjects() {
@@ -18,6 +19,8 @@ export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: em
                  const imgUrl = doc.data().imgUrl
                  const tips = doc.data().tips
                  const suggestions = doc.data().suggestions
+                 const creationDate = doc.data().createdDate
+                 const modifiedDate = doc.data().modifiedDate
 
                  const articleTitle = (doc.data() as any).article.title
                  const articleImgUrl = (doc.data() as any).article.imgUrl
@@ -30,9 +33,16 @@ export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: em
                  subjectObj.article = article
                  subjectObj.tips = tips
                  subjectObj.suggestions = suggestions
+                 subjectObj.createdDate = creationDate
+                 subjectObj.modifiedDate = modifiedDate
                  subjectsArray.push(subjectObj)
 
-                 if(cnt === snapshot.docs.length - 1) { resolve(subjectsArray) }
+                 if(cnt === snapshot.docs.length - 1) {
+                     console.log('Before', subjectsArray)
+                     subjectsArray.sort((a: Subject, b: Subject) => a.modifiedDate < b.modifiedDate ? 1 : -1)
+                     console.log('After', subjectsArray)
+                     resolve(subjectsArray)
+                 }
              }
          })
      })
@@ -46,6 +56,8 @@ export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: em
              tips: subject.tips,
              title: subject.title,
              imgUrl: subject.imgUrl,
+             createdDate: subject.createdDate,
+             modifiedDate: subject.modifiedDate,
              article: {
                  title: subject.article.title,
                  imgUrl: subject.article.imgUrl,
@@ -66,6 +78,8 @@ export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: em
             tips: subject.tips,
             title: subject.title,
             imgUrl: subject.imgUrl,
+            createdDate: subject.createdDate,
+            modifiedDate: subject.modifiedDate,
             article: {
                 title: subject.article.title,
                 imgUrl: subject.article.imgUrl,
