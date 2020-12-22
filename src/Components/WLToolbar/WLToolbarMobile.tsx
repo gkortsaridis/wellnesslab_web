@@ -3,6 +3,7 @@ import "rmwc/styles";
 import {Menu, MenuItem, IconButton, MenuSurfaceAnchor, MenuSurface, SimpleMenu, Button } from 'rmwc';
 import coverImg from "../../Images/cover1.jpg";
 import logoWhite from "../../Images/logo_white.png";
+import {ACTIONS, HOME, SUBJECTS, TEAM, VIDEOS} from "../../Entities/AppRoutes";
 
 type WLToolbarProps = {
     onPageSelected: (page: string) => void;
@@ -29,7 +30,7 @@ class WLToolbarMobile extends React.Component<WLToolbarProps, WLToolbarMobileSta
     }
 
     private onMenuItemClicked(index: number) {
-        const items = ['/dev', '/dev/subjects', '/dev/actions', '/dev/video', '/dev/team']
+        const items = [HOME, SUBJECTS, ACTIONS, VIDEOS, TEAM]
         this.props.onPageSelected(items[index])
     }
 

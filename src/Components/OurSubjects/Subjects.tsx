@@ -4,13 +4,12 @@ import { ParallaxHover } from 'react-parallax-hover';
 import {getAllSubjects} from "../../Repositories/SubjectsRepository";
 import {Subject} from "../../Entities/Entities";
 
-type OurSubjectsState = {
-    subjects: Subject[]
-}
+type OurSubjectsState = { subjects: Subject[] }
+type OurSubjectProps = { history: any }
 
-class Subjects extends React.Component<{ }, OurSubjectsState> {
+class Subjects extends React.Component<OurSubjectProps, OurSubjectsState> {
 
-    constructor(props: {}, state: OurSubjectsState) {
+    constructor(props: OurSubjectProps, state: OurSubjectsState) {
         super(props, state);
 
         this.state = { subjects: [] }
@@ -25,14 +24,15 @@ class Subjects extends React.Component<{ }, OurSubjectsState> {
     }
 
     private clickedLink(link: string) {
-        alert(link)
+        const appHistory = this.props.history
+        appHistory.push("/dev/subjects/"+link)
     }
 
     render() {
         const articleItems: JSX.Element[]= [];
         for (let i=0; i<this.state.subjects.length; i++) {
             articleItems.push(
-                <div style={this.styles.itemCardContainer} onClick={(e) => this.clickedLink(this.state.subjects[i].article.articleUrl)}>
+                <div style={this.styles.itemCardContainer} onClick={(e) => this.clickedLink(this.state.subjects[i].id)}>
                     <ParallaxHover width={302} height={502} rotation={9} shadow={2} borderRadius={this.cardRadius}>
                         <div style={this.styles.articleCard}>
                             <div style={Object.assign({background: 'url('+this.state.subjects[i].imgUrl+') center / cover'}, this.styles.articleImage)}></div>

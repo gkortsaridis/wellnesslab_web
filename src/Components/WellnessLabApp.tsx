@@ -11,10 +11,10 @@ import Team from "./OurTeam/Team";
 import UIv1 from "./UIv1/UIv1";
 import AdminPanel from "./Admin/AdminPanel";
 import { createBrowserHistory } from 'history'
+import SubjectDetails from "./OurSubjects/SubjectDetails";
+import {ACTIONS, ADMIN, HOME, SUBJECT_DETAILS, SUBJECTS, TEAM, VIDEOS} from "../Entities/AppRoutes";
 
-type WellnessLabAppState = {
-    activePage: string;
-}
+type WellnessLabAppState = { renderFlag: boolean }
 
 const firebaseConfig = {
     apiKey: "AIzaSyDY9zLRl7EOpKR02SWCGpwW2jkrh-YU2uY",
@@ -33,53 +33,74 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
     constructor(props: {}, state: WellnessLabAppState) {
         super(props, state);
 
-        this.state = { activePage: 'Αρχική' }
         this.onPageSelected = this.onPageSelected.bind(this)
+        this.state = { renderFlag : false }
 
         // Initialize Firebase
-        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig);}
+        if (!firebase.apps.length) { firebase.initializeApp(firebaseConfig) }
         else { firebase.app(); }
 
+        this.appHistory.listen((listener) => {
+            this.setState({ renderFlag: !this.state.renderFlag })
+        })
     }
 
     private onPageSelected(page: string) {
         if(page !== this.appHistory.location.pathname) {
             this.appHistory.push(page)
-            this.setState({ activePage: page })
+            this.setState({ renderFlag: !this.state.renderFlag })
         }
     }
 
     render() {
+        console.log("render",this.appHistory.location.pathname)
         return (
             <Router history={this.appHistory}>
                 <Switch>
-                    <Route exact path="/dev">
+                    <Route exact path={HOME}>
                         <div style={this.styles.container}>
-                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Home/>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Home/>
                         </div>
                     </Route>
-                    <Route exact path="/dev/subjects">
+
+                    <Route exact path={SUBJECTS}>
                         <div style={this.styles.container}>
-                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Subjects/>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Subjects history={this.appHistory}/>
                         </div>
                     </Route>
-                    <Route exact path="/dev/actions">
+
+                    <Route exact path={SUBJECT_DETAILS}>
                         <div style={this.styles.container}>
-                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Actions/>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <SubjectDetails history={this.appHistory}/>
                         </div>
                     </Route>
-                    <Route exact path="/dev/video">
+
+                    <Route exact path={ACTIONS}>
                         <div style={this.styles.container}>
-                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Videos/>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Actions/>
                         </div>
                     </Route>
-                    <Route exact path="/dev/team">
+
+                    <Route exact path={VIDEOS}>
                         <div style={this.styles.container}>
-                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/> <Team/>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Videos/>
                         </div>
                     </Route>
-                    <Route exact path="/adminpanel" component={AdminPanel}/>
-                    <Route path="*" component={UIv1}/>
+
+                    <Route exact path={TEAM}>
+                        <div style={this.styles.container}>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Team/>
+                        </div>
+                    </Route>
+
+                    <Route exact path={ADMIN}>
+                        <AdminPanel/>
+                    </Route>
+
+                    <Route path="*">
+                        <UIv1/>
+                    </Route>
+
                 </Switch>
             </Router>
         )

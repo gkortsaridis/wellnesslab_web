@@ -3,6 +3,7 @@ import { TopAppBar, TopAppBarFixedAdjust, TopAppBarRow, TopAppBarSection, TopApp
 import logoWhite from "../../Images/logo_white.png";
 import WLToolbarItem from "./WLToolbarItem";
 import {wellnessLabPrimary} from "../../Entities/Colors";
+import {ACTIONS, HOME, SUBJECTS, TEAM, VIDEOS} from "../../Entities/AppRoutes";
 
 type WLToolbarProps = {
     onPageSelected: (page: string) => void;
@@ -33,11 +34,11 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
                     </TopAppBarRow>
                     <TopAppBarRow>
                         <TopAppBarSection >
-                            <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={"/dev/"} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={"/dev/subjects"} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={"/dev/actions"} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={"/dev/video"} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={"/dev/team"} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={HOME} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={SUBJECTS} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={ACTIONS} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={VIDEOS} onPageSelected={this.onPageSelected} />
+                            <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={TEAM} onPageSelected={this.onPageSelected} />
                         </TopAppBarSection>
                     </TopAppBarRow>
                 </TopAppBar>
