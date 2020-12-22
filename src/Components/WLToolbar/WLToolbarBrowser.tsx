@@ -30,7 +30,9 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
                             <img src={logoWhite} style={this.stylesBrowser.logo}/>
                             <TopAppBarTitle>WellnessLab</TopAppBarTitle>
                         </TopAppBarSection>
-                        <TopAppBarSection alignEnd>
+                    </TopAppBarRow>
+                    <TopAppBarRow>
+                        <TopAppBarSection >
                             <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={""} onPageSelected={this.onPageSelected} />
                             <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={""} onPageSelected={this.onPageSelected} />
                             <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={""} onPageSelected={this.onPageSelected} />
@@ -45,7 +47,7 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
     }
 
     stylesBrowser = {
-        container: {backgroundColor: '#63948C', backgroundSize: 'cover', display: 'flex', flexDirection: 'column' as 'column'},
+        container: {backgroundColor: '#63948C', backgroundSize: 'cover', display: 'flex', flexDirection: 'column' as 'column', paddingBottom: 64},
         logo: {width: 40, height: 40, marginRight: 20 },
     }
 }

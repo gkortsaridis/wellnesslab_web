@@ -38,9 +38,7 @@ export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: em
                  subjectsArray.push(subjectObj)
 
                  if(cnt === snapshot.docs.length - 1) {
-                     console.log('Before', subjectsArray)
                      subjectsArray.sort((a: Subject, b: Subject) => a.modifiedDate < b.modifiedDate ? 1 : -1)
-                     console.log('After', subjectsArray)
                      resolve(subjectsArray)
                  }
              }

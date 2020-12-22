@@ -20,7 +20,7 @@ class Home extends React.Component<{ }, {}> {
     styles = {
         container: {
             flex: 1,
-            background: 'white',
+            backgroundColor: '#F7F7F7',
             padding: 40
         },
         topText: {

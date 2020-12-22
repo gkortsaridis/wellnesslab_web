@@ -18,6 +18,7 @@ import LinkedIn from '../../Images/linkedin.png'
 import logo from '../../Images/logo_white.png'
 import cover from '../../Images/cover.jpg'
 import Email from '../../Images/email.png'
+import {Article, SocialMedia, TeamMember} from "../../Entities/Entities";
 
 type WLToolbarProps = { }
 

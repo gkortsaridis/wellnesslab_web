@@ -2,12 +2,13 @@ import * as React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFacebook, faInstagram, faLinkedin, faTwitter} from "@fortawesome/free-brands-svg-icons";
 import {faMailBulk} from "@fortawesome/free-solid-svg-icons";
-import {Card} from "react-mdl";
 import Anastasia from "../../Images/anastasia_aivatoglou.png";
 import Chrysoula from "../../Images/chrysoula_grigoropoulou.png";
 import maria from "../../Images/maria_dimitriadou.png";
 import georgia from "../../Images/georgia_pantazi.png";
 import ioanna from "../../Images/ioanna_koutsiona.png";
+import {TeamMember} from "../../Entities/Entities";
+import { ParallaxHover } from 'react-parallax-hover';
 
 class Team extends React.Component<{ }, {}> {
 
@@ -15,6 +16,8 @@ class Team extends React.Component<{ }, {}> {
 
     constructor(props: {}, state: {}) {
         super(props, state);
+
+        this.clickedLink = this.clickedLink.bind(this)
 
         this.team.push({
             name: "Αναστασία\nΑιβάτογλου",
@@ -113,15 +116,19 @@ class Team extends React.Component<{ }, {}> {
         })
     }
 
+    private clickedLink(link: string) {
+        alert(link)
+    }
 
     render() {
         const teamItems: JSX.Element[] = []
 
         for (let i=0; i<this.team.length; i++) {
             const personSocial: JSX.Element[] = [];
+
             for (let j=0; j<this.team[i].social.length; j++) {
                 personSocial.push(
-                    <a href={this.team[i].social[j].url} >
+                    <div onClick={(e) => {this.clickedLink(this.team[i].social[j].url)}} >
                         <FontAwesomeIcon icon={
                             this.team[i].social[j].name === "facebook"
                                 ? faFacebook
@@ -132,48 +139,45 @@ class Team extends React.Component<{ }, {}> {
                                     : this.team[i].social[j].name === "mail"
                                         ? faMailBulk
                                         : faTwitter
-                        } style={this.styles.socialIcon}/>
+                        } style={this.styles.teamMemberSocialIcon}/>
 
-                    </a>
+                    </div>
                 )
             }
 
             teamItems.push(
-                <div style={{flexGrow: 1, padding: '10px'}}>
-                    <Card  shadow={0} style={{width: '250px',height: '330px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
-                        <img style={{width: '150px', height: '150px', padding: '30px'}} src={this.team[i].image}/>
-                        <div style={{fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '30px'}}>
-                            <p>
-                                <div style={{fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)'}}>
-                                    {this.team[i].name}
-                                </div>
-                                <div style={{fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'}}>
-                                    {this.team[i].title}
-                                </div>
-
-                            </p>
-                            <div>
-                                {personSocial}
+                <div style={this.styles.itemCardContainer}>
+                    <ParallaxHover width={252} height={272} rotation={9} shadow={2} borderRadius={15} light={0}>
+                        <div style={this.styles.teamMemberCard}>
+                            <img style={this.styles.teamMemberImg} src={this.team[i].image}/>
+                            <div style={this.styles.teamMemberTextContainer}>
+                                <p>
+                                    <div style={this.styles.teamMemberName}> {this.team[i].name} </div>
+                                    <div style={this.styles.teamMemberTitle}> {this.team[i].title} </div>
+                                </p>
                             </div>
                         </div>
-                    </Card>
+                    </ParallaxHover>
+                    <div style={this.styles.teamMemberSocialsContainer}>{personSocial}</div>
                 </div>
             )
         }
 
+
         return (
             <div style={this.styles.container}>
-                <div style={this.styles.cardsContainer}>
-                    {teamItems}
-                </div>
+                <h3 style={this.styles.introText}>Αυτό είναι ένα σύντομο κείμενο που θα περιγραφει την ομάδα </h3>
+                <div style={this.styles.cardsContainer}> {teamItems} </div>
             </div>
         )
     }
 
+    cardRadius = 15
+
     styles = {
         container: {
             flex: 1,
-            background: 'white'
+            backgroundColor: '#F7F7F7'
         },
         cardsContainer: {
             width: '75%',
@@ -183,7 +187,15 @@ class Team extends React.Component<{ }, {}> {
             marginLeft: 'auto',
             marginRight: 'auto'
         },
-        socialIcon: {padding: 15, color:'rgb(99, 148, 140)'}
+        introText: {fontFamily: 'Roboto', fontWeight: 100, padding: 20},
+        itemCardContainer: {flexGrow: 1, padding: '10px', display: 'flex', flexDirection: 'column' as 'column', justifyContent: 'center' as 'center', alignItems: 'center' as 'center'},
+        teamMemberCard: {width: '250px',height: '270px', display: 'flex', flexDirection: 'column' as 'column', backgroundColor: 'white', border: '1px solid black', borderRadius: this.cardRadius, alignItems: 'center' as 'center'},
+        teamMemberSocialIcon: {width: '30px', height: '30px', padding: 15, color:'rgb(99, 148, 140)'},
+        teamMemberSocialsContainer: {display: 'flex', flexDirection: 'row' as 'row'},
+        teamMemberImg: {width: '120px', height: '120px', marginTop: '20px'},
+        teamMemberTextContainer: {fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '30px'},
+        teamMemberName: {fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)'},
+        teamMemberTitle: {fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'}
     }
 }
 

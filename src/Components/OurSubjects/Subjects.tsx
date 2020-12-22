@@ -57,7 +57,7 @@ class Subjects extends React.Component<{ }, OurSubjectsState> {
     cardRadius = 15
 
     styles = {
-        container: {flex: 1, background: 'white'},
+        container: {flex: 1, backgroundColor: '#F7F7F7'},
         introText: {fontFamily: 'Roboto', fontWeight: 100, padding: 20},
         articlesContainer: {width: '75%', flexDirection: 'row' as 'row', display: 'flex', flexWrap: 'wrap' as 'wrap', marginLeft: 'auto', marginRight: 'auto'},
         itemCardContainer: {flexGrow: 1, padding: '10px', display: 'flex', flexDirection: 'column' as 'column', justifyContent: 'center' as 'center', alignItems: 'center' as 'center'},
