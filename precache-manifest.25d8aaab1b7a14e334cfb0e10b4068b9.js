@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d0bbcf31058f014c495589bd1fcc8f5f",
+    "revision": "d5269c5016b3922463e713d7e8d61375",
     "url": "/wellnesslab_web/index.html"
   },
   {
