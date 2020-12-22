@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import "rmwc/styles";
 import {Menu, MenuItem, IconButton, MenuSurfaceAnchor, MenuSurface, SimpleMenu, Button } from 'rmwc';
 import coverImg from "../../Images/cover1.jpg";

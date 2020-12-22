@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import firebase from "firebase";
 import { BrowserRouter as Router, Switch, Route, Link, useRouteMatch, useParams } from "react-router-dom";
 
@@ -10,6 +10,7 @@ import Videos from "./OurVideos/Videos";
 import Team from "./OurTeam/Team";
 import UIv1 from "./UIv1/UIv1";
 import AdminPanel from "./Admin/AdminPanel";
+import {ParallaxProvider} from "react-scroll-parallax";
 
 type WellnessLabAppState = {
     activePage: string;
@@ -46,34 +47,35 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
 
     render() {
         return (
-            <Router>
-                <Switch>
-                    <Route exact path="/dev">
+            <ParallaxProvider>
+                <Router>
+                    <Switch>
+                        <Route exact path="/dev">
+                            <div style={this.styles.container}>
+                                <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/>
+                                {
+                                    this.state.activePage === 'Αρχική'
+                                        ? <Home/>
+                                        : this.state.activePage === 'Θέματα'
+                                        ? <Subjects/>
+                                        : this.state.activePage === 'Δράσεις'
+                                            ? <Actions/>
+                                            : this.state.activePage === 'Βίντεο'
+                                                ? <Videos/>
+                                                : <Team/>
+                                }
+                            </div>
 
-                        <div style={this.styles.container}>
-                            <WLToolbar activePage={this.state.activePage} onPageSelected={this.onPageSelected}/>
-                            {
-                                this.state.activePage === 'Αρχική'
-                                    ? <Home/>
-                                    : this.state.activePage === 'Θέματα'
-                                    ? <Subjects/>
-                                    : this.state.activePage === 'Δράσεις'
-                                        ? <Actions/>
-                                        : this.state.activePage === 'Βίντεο'
-                                            ? <Videos/>
-                                            : <Team/>
-                            }
-                        </div>
-
-                    </Route>
-                    <Route exact path="/admin">
-                        <AdminPanel/>
-                    </Route>
-                    <Route path="/">
-                        <UIv1/>
-                    </Route>
-                </Switch>
-            </Router>
+                        </Route>
+                        <Route exact path="/adminpanel">
+                            <AdminPanel/>
+                        </Route>
+                        <Route path="/">
+                            <UIv1/>
+                        </Route>
+                    </Switch>
+                </Router>
+            </ParallaxProvider>
         )
     }
 

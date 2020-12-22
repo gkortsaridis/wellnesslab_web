@@ -1,7 +1,6 @@
-import React from 'react';
+import * as React from 'react';
 import logoWhite from "../../Images/logo_white.png";
 import WLToolbarItem from "./WLToolbarItem";
-import coverImg from "../../Images/cover1.jpg";
 
 type WLToolbarProps = {
     onPageSelected: (page: string) => void;

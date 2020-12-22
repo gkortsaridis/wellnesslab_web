@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import "rmwc/styles";
 import { Typography } from 'rmwc';
 

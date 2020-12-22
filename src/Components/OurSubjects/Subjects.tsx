@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Card, CardTitle} from "react-mdl";
 import Ripples from "react-ripples";
 import firebase from "firebase";

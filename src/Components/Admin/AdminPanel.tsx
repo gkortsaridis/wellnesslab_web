@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import {Button, List, ListItem, SimpleDialog, Typography} from 'rmwc';
 import MultiImageInput from 'react-multiple-image-input';
 import TextField from '@material-ui/core/TextField';

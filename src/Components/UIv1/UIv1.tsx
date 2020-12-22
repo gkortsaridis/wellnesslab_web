@@ -1,15 +1,9 @@
-import React from "react";
-import WLToolbar from "../WLToolbar/WLToolbar";
-
-import { Layout, Header, Content, Card, CardTitle } from 'react-mdl';
-
-import Ripples from 'react-ripples'
-import WebFont from 'webfontloader'
-import { Parallax } from "react-parallax";
+import * as React from "react";
+import { Layout, Header, Content } from 'react-mdl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
-
+import { ParallaxHover } from 'react-parallax-hover';
 
 //Images
 import Anastasia from '../../Images/anastasia_aivatoglou.png'
@@ -24,27 +18,9 @@ import LinkedIn from '../../Images/linkedin.png'
 import logo from '../../Images/logo_white.png'
 import cover from '../../Images/cover.jpg'
 import Email from '../../Images/email.png'
-/*import firebase from "firebase";
-import DocumentData from firebase.firestore.DocumentData
-
-//import DocumentData = firebase.firestore.DocumentData;
-import QuerySnapshot = firebase.firestore.QuerySnapshot;
-import QueryDocumentSnapshot = firebase.firestore.QueryDocumentSnapshot;*/
-
-import firebase from 'firebase/app'
-import 'firebase/firestore';
-
-const firebaseConfig = {
-    apiKey: "AIzaSyDY9zLRl7EOpKR02SWCGpwW2jkrh-YU2uY",
-    authDomain: "wellness-lab.firebaseapp.com",
-    projectId: "wellness-lab",
-    storageBucket: "wellness-lab.appspot.com",
-    messagingSenderId: "885154242879",
-    appId: "1:885154242879:web:0986faa0998be6476e338a",
-    measurementId: "G-P1FY85Q6PG"
-};
 
 type WLToolbarProps = { }
+
 type WLToolabrState = {
     articles: Article[]
     team: TeamMember[],
@@ -77,7 +53,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                         }
                     ]
                 }, {
-                    name: "Χρύσα Γρηγοροπούλου",
+                    name: "Χρύσα\nΓρηγοροπούλου",
                     image: Chrysoula,
                     title: "Co-founder",
                     social: [
@@ -170,44 +146,34 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
             ]
         };
 
-        WebFont.load({google: {families: ["Roboto:100,300,400,500"]}});
-
-        // Initialize Firebase
-        if (!firebase.apps.length) {
-            firebase.initializeApp(firebaseConfig);
-        }else {
-            firebase.app(); // if already initialized, use that one
-        }
+        this.clickedLink = this.clickedLink.bind(this)
     }
 
     componentDidMount() {
-
-        const snapshot = firebase.firestore().collection('articles').get().then((snapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) => {
-            const articlesArray: Article[] = [];
-            snapshot.forEach((doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>) => {
-                articlesArray.push({
-                    'title': doc.data().title,
-                    'imgUrl': doc.data().imgUrl,
-                    'articleUrl': doc.data().articleUrl
-                })
-            });
-
-            console.log(articlesArray);
-
-            this.setState({
-                articles: articlesArray
-            })
-        })
-
-        /*
         fetch("https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@wellnesslab-psy")
             .then(res => res.json())
             .then(
                 (result) => {
                     console.log(result);
+                    const articles: Article[] = []
+                    for(let i=0; i<result.items.length; i++) {
+                        const item = result.items[i]
+                        const article: Article = {
+                            title: item["title"],
+                            imgUrl: item["thumbnail"],
+                            articleUrl: item["link"]
+                        }
+                        articles.push(article)
+                    }
+
+                    this.setState({articles: articles})
                 },
                 (error) => { }
-            )*/
+            )
+    }
+
+    private clickedLink(link: string) {
+        window.open(link, "_blank")
     }
 
     render() {
@@ -217,49 +183,49 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
 
         for (let i=0; i<this.state.articles.length; i++) {
             articleItems.push(
-                <div style={{flexGrow: 1, padding: '10px'}}>
-                    <Card shadow={0} style={{width: '450px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
-                        <CardTitle style={{color: '#fff', height: '600px', background: 'url('+this.state.articles[i].imgUrl+') center / cover'}}/>
-                        <Ripples during={600} color={'rgb(99, 148, 140, 0.3)'}>
-                            <div style={{width: '450px', height: '120px'}}>
-                                <div style={{fontFamily: 'Roboto', fontSize: '24px', lineHeight: '30px', marginLeft: '15px', marginRight: '15px', marginTop: '30px'}}>
-                                    <a target={"_blank"} href={this.state.articles[i].articleUrl} style={{textDecoration:'none', color: 'black'}}>{this.state.articles[i].title}</a>
-                                </div>
+                <div style={this.styles.itemCardContainer} onClick={(e) => this.clickedLink(this.state.articles[i].articleUrl)}>
+                    <ParallaxHover width={302} height={502} rotation={9} shadow={2} borderRadius={15}>
+                        <div style={this.styles.articleCard}>
+                            <div style={Object.assign({background: 'url('+this.state.articles[i].imgUrl+') center / cover'}, this.styles.articleImage)}></div>
+                            <div style={this.styles.articleTitleContainer}>
+                                <p style={this.styles.articleTitleText}>{this.state.articles[i].title}</p>
                             </div>
-                        </Ripples>
-                    </Card>
+                        </div>
+                    </ParallaxHover>
                 </div>
             );
         }
 
         for (let i=0; i<this.state.socialMedia.length; i++) {
             socialItems.push(
-                <div style={{flexGrow: 1, padding: '10px'}}>
-                    <Card shadow={0} style={{width: '250px',height: '250px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
-                        <img style={{width: '150px', height: '150px', padding: '30px'}} src={
-                            this.state.socialMedia[i].name === "Facebook"
-                                ? Facebook
-                                : this.state.socialMedia[i].name === "Twitter"
-                                ? Twitter
-                                : this.state.socialMedia[i].name === "Instagram"
-                                    ? Instagram
-                                    : this.state.socialMedia[i].name === "LinkedIn"
-                                        ? LinkedIn
-                                        : Email
-                        }/>
-                        <div style={{fontFamily: 'Roboto', fontSize: '25px', lineHeight: '30px', fontWeight: 500, color: 'rgb(99, 148, 140)'}}>
-                            <a target={"_blank"} href={this.state.socialMedia[i].url} style={{textDecoration:'none'}}>{this.state.socialMedia[i].name}</a>
+                <div style={this.styles.itemCardContainer} onClick={(e) => {this.clickedLink(this.state.socialMedia[i].url)}}>
+                    <ParallaxHover width={252} height={252} rotation={9} shadow={2} borderRadius={15}>
+                        <div style={this.styles.socialMediaCard}>
+                            <img style={this.styles.socialMediaImg} src={
+                                this.state.socialMedia[i].name === "Facebook"
+                                    ? Facebook
+                                    : this.state.socialMedia[i].name === "Twitter"
+                                    ? Twitter
+                                    : this.state.socialMedia[i].name === "Instagram"
+                                        ? Instagram
+                                        : this.state.socialMedia[i].name === "LinkedIn"
+                                            ? LinkedIn
+                                            : Email
+                            }/>
+                            <p style={this.styles.socialMediaTxt}>{this.state.socialMedia[i].name}</p>
+
                         </div>
-                    </Card>
+                    </ParallaxHover>
                 </div>
             )
         }
 
         for (let i=0; i<this.state.team.length; i++) {
             const personSocial: JSX.Element[] = [];
+
             for (let j=0; j<this.state.team[i].social.length; j++) {
                 personSocial.push(
-                    <a href={this.state.team[i].social[j].url} >
+                    <div onClick={(e) => {this.clickedLink(this.state.team[i].social[j].url)}} >
                         <FontAwesomeIcon icon={
                             this.state.team[i].social[j].name === "facebook"
                                 ? faFacebook
@@ -270,86 +236,76 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                                     : this.state.team[i].social[j].name === "mail"
                                         ? faMailBulk
                                         : faTwitter
-                        } style={{padding: 15, color:'rgb(99, 148, 140)'}}/>
+                        } style={this.styles.teamMemberSocialIcon}/>
 
-                    </a>
+                    </div>
                 )
             }
 
             teamItems.push(
-                <div style={{flexGrow: 1, padding: '10px'}}>
-                    <Card  shadow={0} style={{width: '250px',height: '330px', display: 'block', marginLeft: 'auto', marginRight: 'auto'}}>
-                        <img style={{width: '150px', height: '150px', padding: '30px'}} src={this.state.team[i].image}/>
-                        <div style={{fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '30px'}}>
-                            <p>
-                                <div style={{fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)'}}>
-                                    {this.state.team[i].name}
-                                </div>
-                                <div style={{fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'}}>
-                                    {this.state.team[i].title}
-                                </div>
-
-                            </p>
-                            <div>
-                                {personSocial}
+                <div style={this.styles.itemCardContainer}>
+                    <ParallaxHover width={252} height={272} rotation={9} shadow={2} borderRadius={15} light={0}>
+                        <div style={this.styles.teamMemberCard}>
+                            <img style={this.styles.teamMemberImg} src={this.state.team[i].image}/>
+                            <div style={this.styles.teamMemberTextContainer}>
+                                <p>
+                                    <div style={this.styles.teamMemberName}> {this.state.team[i].name} </div>
+                                    <div style={this.styles.teamMemberTitle}> {this.state.team[i].title} </div>
+                                </p>
                             </div>
                         </div>
-                    </Card>
+                    </ParallaxHover>
+                    <div style={this.styles.teamMemberSocialsContainer}>{personSocial}</div>
                 </div>
             )
         }
 
         return (
-            <div className="App">
+            <div style={{whiteSpace: 'pre-wrap'}} className="App">
                 <div>
                     <Layout fixedHeader>
-                        <Header title={"WellnessLab"} style={{color: 'white', backgroundColor: 'rgb(99, 148, 140)'}}>
-                            <img src={logo} style={{height: '100%'}}/>
+                        <Header title={"WellnessLab"} style={this.styles.toolbar}>
+                            <img src={logo} style={this.styles.toolbarLogo}/>
                         </Header>
 
                         <Content>
-                            <div id="intro" className="section scrollspy" style={{paddingLeft: '15%', paddingRight: '15%', paddingTop: '100px', paddingBottom: '100px'}}>
-                                <h1 style={{fontFamily: 'Roboto', fontWeight: 100}}>
+                            <div id="intro" className="section scrollspy" style={this.styles.introContainer}>
+                                <h1 style={this.styles.introText}>
                                     Το WellnessLab σας ενημερώνει για θέματα σωματικής υγείας και πώς αυτά επηρεάζουν την ψυχική μας υγεία. Προωθεί την προσωπική και συλλογική ευημερία και στοχεύει στην παροχή υποστήριξης σε ζητήματα που αφορούν τη σωματική και ψυχική ευεξία.
                                 </h1>
                             </div>
 
-                            <div id="arthra" style={{backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'}}>
-                                <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400}}>Άρθρα</h2>
-                                <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}> {articleItems} </div>
+                            <div id="arthra" style={this.styles.articlesContainer}>
+                                <h2 style={this.styles.sectionHeader}>Άρθρα</h2>
+                                <div style={this.styles.articlesDiv}> {articleItems} </div>
                             </div>
 
-                            <div id="health_experiences" style={{paddingTop: '30px', paddingBottom: '30px'}}>
-                                <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400}}>Εμπειρίες Υγείας</h2>
-                                <h4 style={{fontFamily: 'Roboto', fontWeight: 400}}>
+                            <div id="health_experiences" style={this.styles.healthExperiencesContainer}>
+                                <h2 style={this.styles.sectionHeader}>Εμπειρίες Υγείας</h2>
+                                <h4 style={this.styles.healthExperiencesText}>
                                     Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
                                 </h4>
                             </div>
 
                             <div className="parallax-container">
-                                <Parallax
-                                    bgImage={cover}
-                                    blur={{ min: -15, max: 15 }}
-                                    strength={300}>
-                                    <div style={{height: '600px'}}/>
-                                </Parallax>
+                                <img src={cover} style={this.styles.parallaxImage}/>
                             </div>
 
-                            <div id="social_media" style={{paddingTop: '30px', paddingBottom: '30px'}} >
-                                <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400}}> Social Media </h2>
-                                <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}>
+                            <div id="social_media" style={this.styles.socialMediaContainer} >
+                                <h2 style={this.styles.sectionHeader}> Social Media </h2>
+                                <div style={this.styles.socialMediaDiv}>
                                     {socialItems}
                                 </div>
                             </div>
 
-                            <div id="team" style={{backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'}}>
-                                <h2 style={{color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400}}> Ομάδα </h2>
-                                <div style={{width: '75%', flexDirection: 'row', display: 'flex', flexWrap: 'wrap', marginLeft: 'auto', marginRight: 'auto'}}>
+                            <div id="team" style={this.styles.teamContainer}>
+                                <h2 style={this.styles.sectionHeader}> Ομάδα </h2>
+                                <div style={this.styles.teamDiv}>
                                     {teamItems}
                                 </div>
                             </div>
 
-                            <div style={{height: '100px', backgroundColor: 'rgb(99, 148, 140)'}}></div>
+                            <div style={this.styles.bottomBar}></div>
 
                         </Content>
 
@@ -357,6 +313,41 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                 </div>
             </div>
         );
+    }
+
+    cardRadius = '15px'
+
+    styles = {
+        toolbar: {color: 'white', backgroundColor: 'rgb(99, 148, 140)'},
+        toolbarLogo: {height: '100%'},
+        introContainer: {paddingLeft: '15%', paddingRight: '15%', paddingTop: '100px', paddingBottom: '100px'},
+        introText: {fontFamily: 'Roboto', fontWeight: 100},
+        articlesContainer: {backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'},
+        sectionHeader: {marginLeft: '30px', color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400},
+        articlesDiv: {width: '75%', flexDirection: "row" as 'row', display: 'flex', flexWrap: 'wrap' as "wrap", marginLeft: 'auto', marginRight: 'auto'},
+        healthExperiencesContainer: {paddingTop: '30px', paddingBottom: '30px'},
+        healthExperiencesText: {marginLeft: '30px', marginRight: '30px', fontFamily: 'Roboto', fontWeight: 400},
+        parallaxImage: {height: '500px', width: '100vw', objectFit: 'cover' as 'cover'},
+        socialMediaContainer: {paddingTop: '30px', paddingBottom: '30px'},
+        socialMediaDiv: {width: '75%', flexDirection: 'row' as 'row', display: 'flex', flexWrap: 'wrap' as 'wrap', marginLeft: 'auto', marginRight: 'auto'},
+        teamContainer: {backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'},
+        teamDiv: {width: '75%', flexDirection: 'row' as 'row', display: 'flex', flexWrap: 'wrap' as 'wrap', marginLeft: 'auto', marginRight: 'auto'},
+        bottomBar: {height: '100px', backgroundColor: 'rgb(99, 148, 140)'},
+        itemCardContainer: {flexGrow: 1, padding: '10px', display: 'flex', flexDirection: 'column' as 'column', justifyContent: 'center' as 'center', alignItems: 'center' as 'center'},
+        articleCard: {borderRadius: this.cardRadius, width: '300px', height: '500px',display: "flex", flexDirection: 'column' as 'column', backgroundColor: 'white', border: '1px solid black'},
+        articleImage: {width: '300px', height: '400px', overflow: 'hidden', borderRadius: this.cardRadius},
+        articleTitleContainer: {width: '300px', height: '100px', backgroundColor: 'white', display: 'table', textAlign: 'center' as 'center', borderRadius: this.cardRadius},
+        articleTitleText: {textDecoration: 'none', color: 'black', textAlign: 'center' as 'center', fontSize: '20px', display: 'table-cell', verticalAlign: 'middle', padding: '5px'},
+        socialMediaCard: {display: 'flex', flexDirection: 'column' as 'column', width: '250px', height: '250px', backgroundColor: '#F7F7F7', justifyContent: 'center' as 'center', alignItems: 'center' as 'center', border: '1px solid black', borderRadius: this.cardRadius},
+        socialMediaImg: {width: '150px', height: '150px', padding: '30px'},
+        socialMediaTxt: {textDecoration:'none', fontSize: '20px'},
+        teamMemberCard: {width: '250px',height: '270px', display: 'flex', flexDirection: 'column' as 'column', backgroundColor: 'white', border: '1px solid black', borderRadius: this.cardRadius, alignItems: 'center' as 'center'},
+        teamMemberSocialIcon: {width: '30px', height: '30px', padding: 15, color:'rgb(99, 148, 140)'},
+        teamMemberSocialsContainer: {display: 'flex', flexDirection: 'row' as 'row'},
+        teamMemberImg: {width: '120px', height: '120px', marginTop: '20px'},
+        teamMemberTextContainer: {fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '30px'},
+        teamMemberName: {fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)'},
+        teamMemberTitle: {fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'}
     }
 
 }
