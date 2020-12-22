@@ -1,31 +1,36 @@
 {
   "files": {
-    "main.css": "/wellnesslab_web/static/css/main.fd30766f.chunk.css",
-    "main.js": "/wellnesslab_web/static/js/main.cf68416d.chunk.js",
-    "main.js.map": "/wellnesslab_web/static/js/main.cf68416d.chunk.js.map",
+    "main.css": "/wellnesslab_web/static/css/main.5ecd60fb.chunk.css",
+    "main.js": "/wellnesslab_web/static/js/main.94d884d0.chunk.js",
+    "main.js.map": "/wellnesslab_web/static/js/main.94d884d0.chunk.js.map",
     "runtime-main.js": "/wellnesslab_web/static/js/runtime-main.17356633.js",
     "runtime-main.js.map": "/wellnesslab_web/static/js/runtime-main.17356633.js.map",
-    "static/js/2.997874f3.chunk.js": "/wellnesslab_web/static/js/2.997874f3.chunk.js",
-    "static/js/2.997874f3.chunk.js.map": "/wellnesslab_web/static/js/2.997874f3.chunk.js.map",
+    "static/css/2.6c451fef.chunk.css": "/wellnesslab_web/static/css/2.6c451fef.chunk.css",
+    "static/js/2.97512bb7.chunk.js": "/wellnesslab_web/static/js/2.97512bb7.chunk.js",
+    "static/js/2.97512bb7.chunk.js.map": "/wellnesslab_web/static/js/2.97512bb7.chunk.js.map",
     "index.html": "/wellnesslab_web/index.html",
-    "precache-manifest.e31296bc1f813bbf263112e12a10b138.js": "/wellnesslab_web/precache-manifest.e31296bc1f813bbf263112e12a10b138.js",
+    "precache-manifest.ea4c3f8eb2440722eee70ae6937a1322.js": "/wellnesslab_web/precache-manifest.ea4c3f8eb2440722eee70ae6937a1322.js",
     "service-worker.js": "/wellnesslab_web/service-worker.js",
-    "static/css/main.fd30766f.chunk.css.map": "/wellnesslab_web/static/css/main.fd30766f.chunk.css.map",
-    "static/js/2.997874f3.chunk.js.LICENSE.txt": "/wellnesslab_web/static/js/2.997874f3.chunk.js.LICENSE.txt",
+    "static/css/2.6c451fef.chunk.css.map": "/wellnesslab_web/static/css/2.6c451fef.chunk.css.map",
+    "static/css/main.5ecd60fb.chunk.css.map": "/wellnesslab_web/static/css/main.5ecd60fb.chunk.css.map",
+    "static/js/2.97512bb7.chunk.js.LICENSE.txt": "/wellnesslab_web/static/js/2.97512bb7.chunk.js.LICENSE.txt",
     "static/media/anastasia_aivatoglou.png": "/wellnesslab_web/static/media/anastasia_aivatoglou.19ef0f29.png",
     "static/media/chrysoula_grigoropoulou.png": "/wellnesslab_web/static/media/chrysoula_grigoropoulou.5745fdf1.png",
     "static/media/cover.jpg": "/wellnesslab_web/static/media/cover.f63eca4e.jpg",
+    "static/media/cover1.jpg": "/wellnesslab_web/static/media/cover1.2e293192.jpg",
     "static/media/email.png": "/wellnesslab_web/static/media/email.c1bb3e3a.png",
     "static/media/georgia_pantazi.png": "/wellnesslab_web/static/media/georgia_pantazi.cdfa9b05.png",
     "static/media/instagram.png": "/wellnesslab_web/static/media/instagram.c5ddecc6.png",
     "static/media/ioanna_koutsiona.png": "/wellnesslab_web/static/media/ioanna_koutsiona.b2df86e2.png",
+    "static/media/logo_white.png": "/wellnesslab_web/static/media/logo_white.2f74e15f.png",
     "static/media/maria_dimitriadou.png": "/wellnesslab_web/static/media/maria_dimitriadou.04b84937.png",
     "static/media/twitter.png": "/wellnesslab_web/static/media/twitter.3955c15b.png"
   },
   "entrypoints": [
     "static/js/runtime-main.17356633.js",
-    "static/js/2.997874f3.chunk.js",
-    "static/css/main.fd30766f.chunk.css",
-    "static/js/main.cf68416d.chunk.js"
+    "static/css/2.6c451fef.chunk.css",
+    "static/js/2.97512bb7.chunk.js",
+    "static/css/main.5ecd60fb.chunk.css",
+    "static/js/main.94d884d0.chunk.js"
   ]
 }
