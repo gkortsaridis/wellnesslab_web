@@ -14,6 +14,8 @@ import { createBrowserHistory } from 'history'
 import SubjectDetails from "./OurSubjects/SubjectDetails";
 import {ACTIONS, ADMIN, HOME, SUBJECT_DETAILS, SUBJECTS, TEAM, VIDEOS} from "../Entities/AppRoutes";
 
+require('typeface-roboto')
+
 type WellnessLabAppState = { renderFlag: boolean }
 
 const firebaseConfig = {
@@ -53,7 +55,6 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
     }
 
     render() {
-        console.log("render",this.appHistory.location.pathname)
         return (
             <Router history={this.appHistory}>
                 <Switch>

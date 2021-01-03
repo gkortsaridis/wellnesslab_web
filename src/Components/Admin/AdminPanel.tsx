@@ -68,6 +68,7 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
     }
 
     private createUpdateSubject() {
+        console.log(this.state.activeSubject.suggestions)
 
         const tipsArr: string[] = []
         Object.keys(this.state.images).map((innerAttr) => {
@@ -97,10 +98,12 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
             updateSubject(updatedSubject)
                 .then((result) => {
                     console.log(result)
-                    //window.location.reload(false)
+                    alert('Success')
+                    window.location.reload(false)
                 })
                 .catch((error) => {
                     console.log(error)
+                    alert(error)
                     window.location.reload(false)
                 })
 
@@ -110,15 +113,15 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
             createSubject(updatedSubject)
                 .then((result) => {
                     console.log(result)
+                    alert('success')
                     window.location.reload(false)
                 })
                 .catch((error) => {
                     console.log(error)
+                    alert(error)
                     window.location.reload(false)
                 })
         }
-
-
     }
 
     private onRowClicked(index: number) {
@@ -225,6 +228,7 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
                                     <TextField
                                         style={this.styles.input}
                                         label="Suggestions"
+                                        multiline={true}
                                         value={this.state.activeSubject.suggestions}
                                         onChange={(e) => {
                                             const subject = this.state.activeSubject

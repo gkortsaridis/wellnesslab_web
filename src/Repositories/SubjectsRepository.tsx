@@ -96,3 +96,37 @@ export const emptySubject: Subject = {id: "", title: "", imgUrl: "", article: em
              .catch((error) => reject(error))
      })
  }
+
+ export function getSubjectById(subjectID: string) {
+     return new Promise<any>((resolve, reject) => {
+         firebase.firestore().collection('subjects').doc(subjectID).get()
+             .then((result: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>) => {
+                 let subjectObj: Subject = JSON.parse(JSON.stringify(emptySubject))
+
+                 let data = result.data() as any
+                 const title = data.title
+                 const imgUrl = data.imgUrl
+                 const tips = data.tips
+                 const suggestions = data.suggestions
+                 const creationDate = data.createdDate
+                 const modifiedDate = data.modifiedDate
+
+                 const articleTitle = data.article.title
+                 const articleImgUrl = data.article.imgUrl
+                 const articleUrl = data.article.articleUrl
+                 const article: Article = {title: articleTitle, articleUrl: articleUrl, imgUrl: articleImgUrl }
+
+                 subjectObj.title = title
+                 subjectObj.imgUrl = imgUrl
+                 subjectObj.id = result.id
+                 subjectObj.article = article
+                 subjectObj.tips = tips
+                 subjectObj.suggestions = suggestions
+                 subjectObj.createdDate = creationDate
+                 subjectObj.modifiedDate = modifiedDate
+
+                 resolve(subjectObj)
+             })
+             .catch((error) => reject(error))
+     })
+ }
