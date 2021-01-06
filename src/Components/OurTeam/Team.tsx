@@ -194,7 +194,7 @@ class Team extends React.Component<{ }, {}> {
         teamMemberSocialsContainer: {display: 'flex', flexDirection: 'row' as 'row'},
         teamMemberImg: {width: '120px', height: '120px', marginTop: '20px'},
         teamMemberTextContainer: {fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '30px'},
-        teamMemberName: {fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)'},
+        teamMemberName: {fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', whiteSpace: 'pre-line' as 'pre-line',},
         teamMemberTitle: {fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'}
     }
 }

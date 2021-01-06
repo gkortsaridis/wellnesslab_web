@@ -199,9 +199,9 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
 
         for (let i=0; i<this.state.socialMedia.length; i++) {
             socialItems.push(
-                <div style={this.styles.itemCardContainer} onClick={(e) => {this.clickedLink(this.state.socialMedia[i].url)}}>
+                <div style={this.styles.itemCardContainer} >
                     <ParallaxHover width={252} height={252} rotation={9} shadow={2} borderRadius={15}>
-                        <div style={this.styles.socialMediaCard}>
+                        <div style={this.styles.socialMediaCard}  onClick={(e) => {this.clickedLink(this.state.socialMedia[i].url)}}>
                             <img style={this.styles.socialMediaImg} src={
                                 this.state.socialMedia[i].name === "Facebook"
                                     ? Facebook

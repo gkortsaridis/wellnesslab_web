@@ -60,7 +60,7 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
                 <Switch>
                     <Route exact path={HOME}>
                         <div style={this.styles.container}>
-                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Home/>
+                            <WLToolbar activePage={this.appHistory.location.pathname} onPageSelected={this.onPageSelected}/> <Home history={this.appHistory}/>
                         </div>
                     </Route>
 

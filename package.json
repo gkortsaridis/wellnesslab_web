@@ -29,6 +29,7 @@
     "react-scripts": "3.4.0",
     "react-scroll-parallax": "^2.3.5",
     "react-slideshow-image": "^3.4.3",
+    "react-spring": "9.0.0-rc.3",
     "react-typing-animation": "^1.6.2",
     "react-typist": "^2.0.5",
     "rmwc": "^6.1.4",
