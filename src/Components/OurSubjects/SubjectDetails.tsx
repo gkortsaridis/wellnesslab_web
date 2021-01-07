@@ -5,6 +5,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 import {Button, Card} from 'rmwc'
 import {isMobile} from 'react-device-detect'
+import WellnessCard from "../CustomUIComponents/WellnessCard/WellnessCard";
 
 import back from '../../Images/back_arrow.png'
 import tips from '../../Images/tips_icon.png'
@@ -48,34 +49,9 @@ class SubjectDetails extends React.Component<SubjectDetailsProps, SubjectDetails
             })
     }
 
-    goBack() {
-        const appHistory = this.props.history
-        appHistory.goBack()
-    }
+    goBack() { this.props.history.goBack() }
 
-    cardHoverEnter(card: number) {
-        if(card === 0) {
-            this.setState({card0hover: true})
-        } else if(card === 1 && this.state.subject.tips.length > 0) {
-            this.setState({card1hover: true})
-        } else if(card === 2 && this.state.subject.suggestions !== ""){
-            this.setState({card2hover: true})
-        }
-    }
-
-    cardHoverLeave(card: number) {
-        if(card === 0) {
-            this.setState({card0hover: false})
-        } else if(card === 1) {
-            this.setState({card1hover: false})
-        } else {
-            this.setState({card2hover: false})
-        }
-    }
-
-    readArticle(url: string) {
-        window.open(url, "_blank")
-    }
+    readArticle(url: string) { window.open(url, "_blank") }
 
     render() {
         return (
@@ -87,17 +63,17 @@ class SubjectDetails extends React.Component<SubjectDetailsProps, SubjectDetails
                 <div style={isMobile ? this.styles.dataContainerMobile : this.styles.dataContainer}>
                     <div style={isMobile ? this.styles.articleDivMobile : this.styles.articleDiv}>
                         <div style={this.styles.title}>Άρθρο</div>
-                        <Card style={this.state.card0hover ? this.styles.contentCardHoverArticle : this.styles.contentCardArticle }  onMouseEnter={() => this.cardHoverEnter(0)} onMouseLeave={() => this.cardHoverLeave(0)}>
+                        <WellnessCard width={'80%'} height={500} borderRadius={this.cardRadius}>
                             <div style={{width: '100%', height: 400,  background: 'url('+this.state.subject.article.imgUrl+') center / cover'}} />
                             <div style={this.styles.articleTextContainer}>
                                 <div>{this.state.subject.article.title}</div>
                                 <Button label={"ΔΙΑΒΑΣΕ ΤΟ"} onClick={() => {this.readArticle(this.state.subject.article.articleUrl)}}/>
                             </div>
-                        </Card>
+                        </WellnessCard>
                     </div>
                     <div style={isMobile ? this.styles.tipsDivMobile : this.styles.tipsDiv}>
                         <div style={this.styles.title}>Tips</div>
-                        <Card style={this.state.card1hover ? this.styles.contentCardHoverTips : this.styles.contentCardTips }  onMouseEnter={() => this.cardHoverEnter(1)} onMouseLeave={() => this.cardHoverLeave(1)}>
+                        <WellnessCard width={'80%'} height={500} borderRadius={this.cardRadius} >
                             {
                                 this.state.subject.tips.length > 0
                                     ? <Slide style={this.styles.slideContainer} easing="ease">
@@ -115,11 +91,11 @@ class SubjectDetails extends React.Component<SubjectDetailsProps, SubjectDetails
                                         <div style={this.styles.noContentTxt}>Δεν υπάρχουν tips για αυτό το θέμα ακόμα. Επισκευτείτε μας ξανά σε λίγες μέρες.</div>
                                     </div>
                             }
-                        </Card>
+                        </WellnessCard>
                     </div>
                     <div style={isMobile ? this.styles.suggestionsDivMobile : this.styles.suggestionsDiv}>
                         <div style={this.styles.title}>Suggestions</div>
-                        <Card style={this.state.card2hover ? this.styles.contentCardHoverSuggestions : this.styles.contentCardSuggestions }  onMouseEnter={() => this.cardHoverEnter(2)} onMouseLeave={() => this.cardHoverLeave(2)}>
+                        <WellnessCard width={'80%'} height={500} borderRadius={this.cardRadius}>
                             {
                                 this.state.subject.suggestions !== ""
                                     ? <div style={this.styles.suggestionsTxtContainer}>
@@ -131,7 +107,7 @@ class SubjectDetails extends React.Component<SubjectDetailsProps, SubjectDetails
                                     </div>
                             }
 
-                        </Card>
+                        </WellnessCard>
                     </div>
                 </div>
             </div>

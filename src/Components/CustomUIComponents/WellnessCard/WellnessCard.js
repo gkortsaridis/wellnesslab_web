@@ -22,7 +22,8 @@ export default function WellnessCard(props) {
             willChange: 'transform',
             borderRadius: props.borderRadius,
             display: 'flex',
-            overflow: 'hidden'
+            overflow: 'hidden',
+            flexDirection: 'column'
         }
     }
 

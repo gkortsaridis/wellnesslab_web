@@ -1,7 +1,6 @@
 import * as React from 'react';
 import "rmwc/styles";
 import { Typography } from 'rmwc';
-import { ParallaxHover } from 'react-parallax-hover';
 import {Subject} from "../../Entities/Entities";
 import {emptySubject, getAllSubjects} from "../../Repositories/SubjectsRepository";
 
