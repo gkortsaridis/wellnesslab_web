@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useRef, useState} from "react";
+import {Component, useRef, useState} from "react";
 import { useSpring, animated } from 'react-spring'
 import './styles.css'
 
@@ -28,8 +28,9 @@ export default function WellnessCard(props) {
     }
 
     function calc(x,y) {
-        const offsetTop = inputRef.current.offsetTop
-        const offsetLeft = inputRef.current.offsetLeft
+        const a = (inputRef.current).getBoundingClientRect()
+        const offsetTop = a.top
+        const offsetLeft = a.left
         //console.log(x,y, offsetTop, offsetLeft)
 
         //Calculating Y percentage [-10,10]
