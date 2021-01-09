@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "7bde12bdbb76401493e5ddad6570915b",
+    "revision": "33d3b70033776c1b89ea2e671811c224",
     "url": "/wellnesslab_web/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wellnesslab_web/static/css/2.cfb91a5b.chunk.css"
   },
   {
-    "revision": "13a9d1ed8f5430cd61cf",
+    "revision": "d683356561b5ac725e40",
     "url": "/wellnesslab_web/static/css/main.0ab73210.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/wellnesslab_web/static/js/2.87b83980.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "13a9d1ed8f5430cd61cf",
-    "url": "/wellnesslab_web/static/js/main.fc4b9ed5.chunk.js"
+    "revision": "d683356561b5ac725e40",
+    "url": "/wellnesslab_web/static/js/main.89fc602d.chunk.js"
   },
   {
     "revision": "657ba9476c4c020f72a2",
