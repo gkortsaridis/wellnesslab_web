@@ -64,7 +64,7 @@ class Home extends React.Component<HomeProps, HomeState> {
 
     openSubject(e) {
         const appHistory = this.props.history
-        appHistory.push("/dev/subjects/"+this.state.latestSubject.id)
+        appHistory.push("/wellnesslab_web/dev/subjects/"+this.state.latestSubject.id)
     }
 
     clickedLink(url: string) {

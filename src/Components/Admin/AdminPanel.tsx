@@ -73,6 +73,7 @@ class AdminPanel extends React.Component<{}, AdminPanelState> {
         const tipsArr: string[] = []
         Object.keys(this.state.images).map((innerAttr) => {
             tipsArr.push(this.state.images[innerAttr])
+            return 0
         })
 
         const updateArticle: Article = {

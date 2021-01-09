@@ -57,6 +57,7 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
     }
 
     render() {
+        console.log("LOCATION: ",this.appHistory.location)
         return (
             <Router history={this.appHistory}>
                 <Switch>
@@ -101,7 +102,7 @@ class WellnessLabApp extends React.Component<{}, WellnessLabAppState> {
                     </Route>
 
                     <Route path="*">
-                        <UIv1/>
+                        <UIv1 history={this.appHistory}/>
                     </Route>
 
                 </Switch>

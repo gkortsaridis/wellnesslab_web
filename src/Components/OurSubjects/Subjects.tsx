@@ -25,7 +25,7 @@ class Subjects extends React.Component<OurSubjectProps, OurSubjectsState> {
 
     private clickedLink(link: string) {
         const appHistory = this.props.history
-        appHistory.push("/dev/subjects/"+link)
+        appHistory.push("/wellnesslab_web/dev/subjects/"+link)
     }
 
     render() {

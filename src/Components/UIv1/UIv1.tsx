@@ -18,8 +18,13 @@ import logo from '../../Images/logo_white.png'
 import cover from '../../Images/cover.jpg'
 import Email from '../../Images/email.png'
 import {Article, SocialMedia, TeamMember} from "../../Entities/Entities";
+import {TopAppBar, TopAppBarRow, TopAppBarSection, TopAppBarTitle} from "rmwc";
+import {wellnessLabPrimary} from "../../Entities/Colors";
+import logoWhite from "../../Images/logo_white.png";
 
-type WLToolbarProps = { }
+type WLToolbarProps = {
+    history: any
+}
 
 type WLToolabrState = {
     articles: Article[]
@@ -217,7 +222,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                                             ? LinkedIn
                                             : Email
                             }/>
-                            <p style={this.styles.socialMediaTxt}>{this.state.socialMedia[i].name}</p>
+                            <div style={this.styles.socialMediaTxt}>{this.state.socialMedia[i].name}</div>
 
                         </div>
                     </ParallaxHover>
@@ -269,9 +274,14 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
             <div style={{whiteSpace: 'pre-wrap'}} className="App">
                 <div>
                     <div>
-                        <div title={"WellnessLab"} style={this.styles.toolbar}>
-                            <img alt={"Logo"} src={logo} style={this.styles.toolbarLogo}/>
-                        </div>
+                        <TopAppBar fixed style={{backgroundColor: wellnessLabPrimary}}>
+                            <TopAppBarRow>
+                                <TopAppBarSection>
+                                    <img alt={"Logo"} src={logoWhite} style={this.styles.logo}/>
+                                    <TopAppBarTitle>WellnessLab</TopAppBarTitle>
+                                </TopAppBarSection>
+                            </TopAppBarRow>
+                        </TopAppBar>
 
                         <div>
                             <div id="intro" className="section scrollspy" style={this.styles.introContainer}>
@@ -310,7 +320,9 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                                 </div>
                             </div>
 
-                            <div style={this.styles.bottomBar}></div>
+                            <div style={this.styles.bottomBar} onClick={() => {
+                                this.props.history.push("/wellnesslab_web/dev/")
+                            }}></div>
 
                         </div>
 
@@ -326,12 +338,12 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
         toolbar: {color: 'white', backgroundColor: 'rgb(99, 148, 140)', height: 60},
         toolbarLogo: {height: '100%'},
         introContainer: {paddingLeft: '15%', paddingRight: '15%', paddingTop: '100px', paddingBottom: '100px'},
-        introText: {fontFamily: 'Roboto', fontWeight: 100},
+        introText: {fontFamily: 'Roboto', fontWeight: 100, fontSize: 56},
         articlesContainer: {backgroundColor: 'rgb(247,247,247)', paddingTop: '30px', paddingBottom: '30px'},
-        sectionHeader: {marginLeft: '30px', color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400},
+        sectionHeader: {marginLeft: '30px', color: 'rgb(99, 148, 140)', fontFamily: 'Roboto', fontWeight: 400, fontSize: 45},
         articlesDiv: {width: '75%', flexDirection: "row" as 'row', display: 'flex', flexWrap: 'wrap' as "wrap", marginLeft: 'auto', marginRight: 'auto'},
         healthExperiencesContainer: {paddingTop: '30px', paddingBottom: '30px'},
-        healthExperiencesText: {marginLeft: '30px', marginRight: '30px', fontFamily: 'Roboto', fontWeight: 400},
+        healthExperiencesText: {marginLeft: '30px', marginRight: '30px', fontFamily: 'Roboto', fontWeight: 400, fontSize: 24},
         parallaxImage: {height: '500px', width: '100vw', objectFit: 'cover' as 'cover'},
         socialMediaContainer: {paddingTop: '30px', paddingBottom: '30px'},
         socialMediaDiv: {width: '75%', flexDirection: 'row' as 'row', display: 'flex', flexWrap: 'wrap' as 'wrap', marginLeft: 'auto', marginRight: 'auto'},
@@ -345,14 +357,15 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
         articleTitleText: {textDecoration: 'none', color: 'black', textAlign: 'center' as 'center', fontSize: '20px', display: 'table-cell', verticalAlign: 'middle', padding: '5px'},
         socialMediaCard: {display: 'flex', flexDirection: 'column' as 'column', width: '250px', height: '250px', backgroundColor: '#F7F7F7', justifyContent: 'center' as 'center', alignItems: 'center' as 'center', border: '1px solid black', borderRadius: this.cardRadius},
         socialMediaImg: {width: '150px', height: '150px', padding: '30px'},
-        socialMediaTxt: {textDecoration:'none', fontSize: '20px'},
+        socialMediaTxt: {textDecoration:'none', fontSize: '20px', marginBottom: 16},
         teamMemberCard: {width: '250px',height: '270px', display: 'flex', flexDirection: 'column' as 'column', backgroundColor: 'white', border: '1px solid black', borderRadius: this.cardRadius, alignItems: 'center' as 'center'},
         teamMemberSocialIcon: {width: '30px', height: '30px', padding: 15, color:'rgb(99, 148, 140)'},
         teamMemberSocialsContainer: {display: 'flex', flexDirection: 'row' as 'row'},
         teamMemberImg: {width: '120px', height: '120px', marginTop: '20px'},
-        teamMemberTextContainer: {fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '30px'},
+        teamMemberTextContainer: {fontFamily: 'Roboto', fontSize: '22px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)', padding: '20px'},
         teamMemberName: {fontFamily: 'Roboto', fontSize: '20px', lineHeight: '25px', fontWeight: 500, color: 'rgb(99, 148, 140)'},
-        teamMemberTitle: {fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'}
+        teamMemberTitle: {fontFamily: 'Roboto', fontSize: '16px', lineHeight: '16px', fontWeight: 500, color: 'rgb(255,63,128)', marginTop: '10px'},
+        logo: {width: 40, height: 40, marginRight: 20 },
     }
 
 }
