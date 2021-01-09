@@ -9,7 +9,7 @@ import Twitter from "../../Images/twitter.png";
 import Instagram from "../../Images/instagram.png";
 import LinkedIn from "../../Images/linkedin.png";
 import Email from "../../Images/email.png";
-import cover from '../../Images/cover_transparent.png'
+import cover from '../../Images/front_cover.png'
 
 import WellnessCard from "../CustomUIComponents/WellnessCard/WellnessCard";
 
@@ -43,7 +43,7 @@ class Home extends React.Component<HomeProps, HomeState> {
                 <div style={this.styles.itemCardContainer} >
                     <WellnessCard width={150} height={150} borderRadius={this.cardRadius} onCardClick={() => { this.clickedLink(socialMedia[i].url)}}>
                         <div style={this.styles.socialMediaCard}>
-                            <img style={this.styles.socialMediaImg} src={
+                            <img alt={socialMedia[i].name} style={this.styles.socialMediaImg} src={
                                 socialMedia[i].name === "Facebook"
                                     ? Facebook
                                     : socialMedia[i].name === "Twitter"
@@ -68,7 +68,7 @@ class Home extends React.Component<HomeProps, HomeState> {
     }
 
     clickedLink(url: string) {
-        window.open(url, "_blank")
+        window.open(url, "_blank", "noopener")
     }
 
     render() {
@@ -76,14 +76,10 @@ class Home extends React.Component<HomeProps, HomeState> {
             <div style={this.styles.container}>
                 <div style={this.styles.leftSide}>
                     <div style={{display: 'flex',  flexGrow: 1, alignItems: 'center' as 'center', justifyContent: 'center' as 'center', textAlign: 'center'}}>
-                        <WellnessCard width={'80%'} height={'80%'} borderRadius={this.cardRadius}>
-                            <div style={{'display': 'flex', alignItems: 'center', justifyContent: 'center', background: `url(${cover})`, backgroundSize: 'cover'}}>
-                                <div style={this.styles.topText} >Το WellnessLab σας ενημερώνει για θέματα σωματικής υγείας και πώς αυτά επηρεάζουν την ψυχική μας υγεία. Προωθεί την προσωπική και συλλογική ευημερία και στοχεύει στην παροχή υποστήριξης σε ζητήματα που αφορούν τη σωματική και ψυχική ευεξία.</div>
-                            </div>
-                        </WellnessCard>
+                        <div style={this.styles.topText} >Το WellnessLab σας ενημερώνει για θέματα σωματικής υγείας και πώς αυτά επηρεάζουν την ψυχική μας υγεία. Προωθεί την προσωπική και συλλογική ευημερία και στοχεύει στην παροχή υποστήριξης σε ζητήματα που αφορούν τη σωματική και ψυχική ευεξία.</div>
                     </div>
                     <div style={{padding: 10}}>
-                        <Typography use="headline5">Βρείτε μας στα</Typography>
+                        <Typography use="headline5" style={{fontWeight: 100, marginLeft: 10}}>Βρείτε μας στα</Typography>
                         <div style={this.styles.socialMediaContainer}>{this.socialItems}</div>
                     </div>
                 </div>
@@ -107,7 +103,7 @@ class Home extends React.Component<HomeProps, HomeState> {
     cardRadius = 15
 
     styles = {
-        container: {display: 'flex', flexGrow: 1, width: '100%', flexDirection: 'row' as 'row', backgroundColor: '#F7F7F7',},
+        container: {display: 'flex', flexGrow: 1, width: '100%', flexDirection: 'row' as 'row', backgroundColor: '#F7F7F7', background: `url(${cover})`, backgroundSize: 'cover'},
         topText: {fontFamily: 'Roboto', fontWeight: 100, textAlign: 'center' as 'center', fontSize: 35},
         leftSide: {display: 'flex', width: '70%', flexDirection: 'column' as 'column'},
         rightSide: {display: 'flex', width: '30%', flexDirection: 'column' as 'column', justifyContent: 'center' as 'center', alignItems: 'center' as 'center'},

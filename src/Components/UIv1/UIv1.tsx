@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Layout, Header, Content } from 'react-mdl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebook, faTwitter, faLinkedin, faInstagram } from '@fortawesome/free-brands-svg-icons'
 import { faMailBulk } from "@fortawesome/free-solid-svg-icons";
@@ -39,6 +38,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                     name: "Αναστασία\nΑιβάτογλου",
                     image: Anastasia,
                     title: "Co-founder",
+                    bio: "",
                     social: [
                         {
                             name: "facebook",
@@ -57,6 +57,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                     name: "Χρύσα\nΓρηγοροπούλου",
                     image: Chrysoula,
                     title: "Co-founder",
+                    bio: "",
                     social: [
                         {
                             name: "facebook",
@@ -75,6 +76,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                     name: "Μαρία\nΔημητριάδου",
                     image: maria,
                     title: "Content writer",
+                    bio: "",
                     social: [
                         {
                             name: "facebook",
@@ -93,6 +95,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                     name: "Γεωργία\nΠανταζή",
                     image: georgia,
                     title: "Content writer",
+                    bio: "",
                     social: [
                         {
                             name: "facebook",
@@ -111,6 +114,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                     name: "Ιωάννα\nΚουτσιώνα",
                     image: ioanna,
                     title: "Content writer",
+                    bio: "",
                     social: [
                         {
                             name: "facebook",
@@ -174,7 +178,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
     }
 
     private clickedLink(link: string) {
-        window.open(link, "_blank")
+        window.open(link, "_blank", "noopener")
     }
 
     render() {
@@ -202,7 +206,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                 <div style={this.styles.itemCardContainer} >
                     <ParallaxHover width={252} height={252} rotation={9} shadow={2} borderRadius={15}>
                         <div style={this.styles.socialMediaCard}  onClick={(e) => {this.clickedLink(this.state.socialMedia[i].url)}}>
-                            <img style={this.styles.socialMediaImg} src={
+                            <img alt={"social media icon"} style={this.styles.socialMediaImg} src={
                                 this.state.socialMedia[i].name === "Facebook"
                                     ? Facebook
                                     : this.state.socialMedia[i].name === "Twitter"
@@ -247,7 +251,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                 <div style={this.styles.itemCardContainer}>
                     <ParallaxHover width={252} height={272} rotation={9} shadow={2} borderRadius={15} light={0}>
                         <div style={this.styles.teamMemberCard}>
-                            <img style={this.styles.teamMemberImg} src={this.state.team[i].image}/>
+                            <img alt={"team member icon"} style={this.styles.teamMemberImg} src={this.state.team[i].image}/>
                             <div style={this.styles.teamMemberTextContainer}>
                                 <p>
                                     <div style={this.styles.teamMemberName}> {this.state.team[i].name} </div>
@@ -264,12 +268,12 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
         return (
             <div style={{whiteSpace: 'pre-wrap'}} className="App">
                 <div>
-                    <Layout fixedHeader>
-                        <Header title={"WellnessLab"} style={this.styles.toolbar}>
-                            <img src={logo} style={this.styles.toolbarLogo}/>
-                        </Header>
+                    <div>
+                        <div title={"WellnessLab"} style={this.styles.toolbar}>
+                            <img alt={"Logo"} src={logo} style={this.styles.toolbarLogo}/>
+                        </div>
 
-                        <Content>
+                        <div>
                             <div id="intro" className="section scrollspy" style={this.styles.introContainer}>
                                 <h1 style={this.styles.introText}>
                                     Το WellnessLab σας ενημερώνει για θέματα σωματικής υγείας και πώς αυτά επηρεάζουν την ψυχική μας υγεία. Προωθεί την προσωπική και συλλογική ευημερία και στοχεύει στην παροχή υποστήριξης σε ζητήματα που αφορούν τη σωματική και ψυχική ευεξία.
@@ -284,12 +288,12 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
                             <div id="health_experiences" style={this.styles.healthExperiencesContainer}>
                                 <h2 style={this.styles.sectionHeader}>Εμπειρίες Υγείας</h2>
                                 <h4 style={this.styles.healthExperiencesText}>
-                                    Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"}>φόρμα</a>
+                                    Μοιράσου και εσύ τη δική σου εμπειρία υγείας ανώνυμα, συμπληρώνοντας την παρακάτω <a target="_blank" href={"https://forms.gle/5jbZK3NRPLDWhdrn9"} rel="noopener noreferrer">φόρμα</a>
                                 </h4>
                             </div>
 
                             <div className="parallax-container">
-                                <img src={cover} style={this.styles.parallaxImage}/>
+                                <img alt={"cover"} src={cover} style={this.styles.parallaxImage}/>
                             </div>
 
                             <div id="social_media" style={this.styles.socialMediaContainer} >
@@ -308,9 +312,9 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
 
                             <div style={this.styles.bottomBar}></div>
 
-                        </Content>
+                        </div>
 
-                    </Layout>
+                    </div>
                 </div>
             </div>
         );
@@ -319,7 +323,7 @@ class UIv1 extends React.Component<WLToolbarProps, WLToolabrState> {
     cardRadius = '15px'
 
     styles = {
-        toolbar: {color: 'white', backgroundColor: 'rgb(99, 148, 140)'},
+        toolbar: {color: 'white', backgroundColor: 'rgb(99, 148, 140)', height: 60},
         toolbarLogo: {height: '100%'},
         introContainer: {paddingLeft: '15%', paddingRight: '15%', paddingTop: '100px', paddingBottom: '100px'},
         introText: {fontFamily: 'Roboto', fontWeight: 100},

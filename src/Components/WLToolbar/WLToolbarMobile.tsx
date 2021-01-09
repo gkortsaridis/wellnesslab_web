@@ -1,9 +1,9 @@
 import * as React from 'react';
 import "rmwc/styles";
-import {Menu, MenuItem, IconButton, MenuSurfaceAnchor, MenuSurface, SimpleMenu, Button } from 'rmwc';
+import {MenuItem, IconButton, SimpleMenu } from 'rmwc';
 import coverImg from "../../Images/cover1.jpg";
 import logoWhite from "../../Images/logo_white.png";
-import {ACTIONS, HOME, SUBJECTS, TEAM, VIDEOS} from "../../Entities/AppRoutes";
+import {ACTIONS, HOME, SUBJECTS, TEAM } from "../../Entities/AppRoutes";
 
 type WLToolbarProps = {
     onPageSelected: (page: string) => void;
@@ -30,7 +30,7 @@ class WLToolbarMobile extends React.Component<WLToolbarProps, WLToolbarMobileSta
     }
 
     private onMenuItemClicked(index: number) {
-        const items = [HOME, SUBJECTS, ACTIONS, VIDEOS, TEAM]
+        const items = [HOME, SUBJECTS, ACTIONS, TEAM]
         this.props.onPageSelected(items[index])
     }
 
@@ -38,7 +38,7 @@ class WLToolbarMobile extends React.Component<WLToolbarProps, WLToolbarMobileSta
         return (
             <div style={this.stylesMobile.container}>
                 <div style={this.stylesMobile.row1}>
-                    <img src={logoWhite} style={this.stylesMobile.logo}/>
+                    <img alt={"Logo"} src={logoWhite} style={this.stylesMobile.logo}/>
 
                     <p style={this.stylesMobile.logoText}>WellnessLab</p>
 
@@ -47,7 +47,6 @@ class WLToolbarMobile extends React.Component<WLToolbarProps, WLToolbarMobileSta
                             <MenuItem>Αρχική</MenuItem>
                             <MenuItem>Θέματα</MenuItem>
                             <MenuItem>Δράσεις</MenuItem>
-                            <MenuItem>Βίντεο</MenuItem>
                             <MenuItem>Ομάδα</MenuItem>
                         </SimpleMenu>
                     </div>

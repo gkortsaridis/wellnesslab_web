@@ -2,10 +2,9 @@ import * as React from 'react';
 
 class Videos extends React.Component<{ }, {}> {
 
-    constructor(props: {}, state: {}) {
+    /*constructor(props: {}, state: {}) {
         super(props, state);
-    }
-
+    }*/
 
     render() {
         return (

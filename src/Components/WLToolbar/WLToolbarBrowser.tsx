@@ -3,7 +3,7 @@ import { TopAppBar, TopAppBarFixedAdjust, TopAppBarRow, TopAppBarSection, TopApp
 import logoWhite from "../../Images/logo_white.png";
 import WLToolbarItem from "./WLToolbarItem";
 import {wellnessLabPrimary} from "../../Entities/Colors";
-import {ACTIONS, HOME, SUBJECTS, TEAM, VIDEOS} from "../../Entities/AppRoutes";
+import {ACTIONS, HOME, SUBJECTS, TEAM } from "../../Entities/AppRoutes";
 
 type WLToolbarProps = {
     onPageSelected: (page: string) => void;
@@ -28,7 +28,7 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
                 <TopAppBar fixed style={{backgroundColor: wellnessLabPrimary}}>
                     <TopAppBarRow>
                         <TopAppBarSection>
-                            <img src={logoWhite} style={this.stylesBrowser.logo}/>
+                            <img alt={"Logo"} src={logoWhite} style={this.stylesBrowser.logo}/>
                             <TopAppBarTitle>WellnessLab</TopAppBarTitle>
                         </TopAppBarSection>
                     </TopAppBarRow>
@@ -37,7 +37,6 @@ class WLToolbarBrowser extends React.Component<WLToolbarProps, {}> {
                             <WLToolbarItem activePage={this.props.activePage} name={"Αρχική"} link={HOME} onPageSelected={this.onPageSelected} />
                             <WLToolbarItem activePage={this.props.activePage} name={"Θέματα"} link={SUBJECTS} onPageSelected={this.onPageSelected} />
                             <WLToolbarItem activePage={this.props.activePage} name={"Δράσεις"} link={ACTIONS} onPageSelected={this.onPageSelected} />
-                            <WLToolbarItem activePage={this.props.activePage} name={"Βίντεο"} link={VIDEOS} onPageSelected={this.onPageSelected} />
                             <WLToolbarItem activePage={this.props.activePage} name={"Ομάδα"} link={TEAM} onPageSelected={this.onPageSelected} />
                         </TopAppBarSection>
                     </TopAppBarRow>

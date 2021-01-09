@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Component, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import { useSpring, animated } from 'react-spring'
 import './styles.css'
 
@@ -17,7 +17,7 @@ export default function WellnessCard(props) {
             width: props.width,
             height: props.height,
             backgroundPosition: 'center center',
-            boxShadow: hovering ? '10px 10px 30px -5px rgba(0, 0, 0, 0.7)': '0px 10px 30px -5px rgba(0, 0, 0, 0.3)',
+            boxShadow: props.disabled ? '0px 5px 10px -5px rgba(0, 0, 0, 0.3)' : hovering ? '10px 10px 30px -5px rgba(0, 0, 0, 0.7)': '0px 10px 30px -5px rgba(0, 0, 0, 0.3)',
             transition: 'box-shadow 0.5s',
             willChange: 'transform',
             borderRadius: props.borderRadius,
@@ -28,38 +28,43 @@ export default function WellnessCard(props) {
     }
 
     function calc(x,y) {
-        const a = (inputRef.current).getBoundingClientRect()
-        const offsetTop = a.top
-        const offsetLeft = a.left
-        //console.log(x,y, offsetTop, offsetLeft)
+        if(!props.disableMove) {
+            const a = (inputRef.current).getBoundingClientRect()
+            const offsetTop = a.top
+            const offsetLeft = a.left
+            //console.log(x,y, offsetTop, offsetLeft)
 
-        //Calculating Y percentage [-10,10]
-        const height = props.height
-        var percentageInsideY = offsetTop+height-y
-        if(percentageInsideY < 0) { percentageInsideY = 0 }
-        else if(percentageInsideY > height) { percentageInsideY = height }
+            //Calculating Y percentage [-10,10]
+            const height = props.height
+            let percentageInsideY = offsetTop+height-y
+            if(percentageInsideY < 0) { percentageInsideY = 0 }
+            else if(percentageInsideY > height) { percentageInsideY = height }
 
-        var old_value = percentageInsideY
-        var old_min = 0
-        var old_max = height
-        var new_min = -10
-        var new_max = 10
-        var new_valueY = ( (old_value - old_min) / (old_max - old_min) ) * (new_max - new_min) + new_min
+            let old_value = percentageInsideY
+            let old_min = 0
+            let old_max = height
+            let new_min = -10
+            let new_max = 10
+            let new_valueY = ( (old_value - old_min) / (old_max - old_min) ) * (new_max - new_min) + new_min
 
-        //Calculating X percentage [-10,10]
-        const width = props.width
-        var percentageInsideX = offsetLeft+width-x
-        if(percentageInsideX < 0) { percentageInsideX = 0 }
-        else if(percentageInsideX > width) { percentageInsideX = width }
+            //Calculating X percentage [-10,10]
+            const width = props.width
+            let percentageInsideX = offsetLeft+width-x
+            if(percentageInsideX < 0) { percentageInsideX = 0 }
+            else if(percentageInsideX > width) { percentageInsideX = width }
 
-        var old_value = percentageInsideX
-        var old_min = 0
-        var old_max = width
-        var new_min = -10
-        var new_max = 10
-        var new_valueX = ( (old_value - old_min) / (old_max - old_min) ) * (new_max - new_min) + new_min
+            old_value = percentageInsideX
+            old_min = 0
+            old_max = width
+            new_min = -10
+            new_max = 10
+            let new_valueX = ( (old_value - old_min) / (old_max - old_min) ) * (new_max - new_min) + new_min
 
-        return [new_valueY, -new_valueX, 1]
+            return [-new_valueY, new_valueX, 1]
+        } else {
+            return [0,0,1]
+        }
+
     }
 
     return (
@@ -67,18 +72,19 @@ export default function WellnessCard(props) {
             ref={inputRef}
             class="card"
             onMouseMove={(e) => {
-                if(!props.disableMove) {
-                    set({ xys: calc(e.clientX, e.clientY) })
-                }
+                set({ xys: calc(e.clientX, e.clientY) })
             }}
             onMouseLeave={() => {
-                setHover(false)
+                if(!props.disabled) { setHover(false) }
                 set({ xys: [0, 0, 1] })
             }}
-            onMouseEnter={() => setHover(true)}
+            onMouseEnter={() => {
+                if(!props.disabled) { setHover(true) }
+            }}
             style={Object.assign(props.style | {}, cardStyle.card, { transform: stuff.xys.interpolate(trans) })}
             onClick={props.onCardClick}>
             {props.children}
         </animated.div>
     )
+
 }
