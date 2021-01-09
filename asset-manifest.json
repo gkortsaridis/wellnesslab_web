@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/wellnesslab_web/static/css/main.0ab73210.chunk.css",
-    "main.js": "/wellnesslab_web/static/js/main.b7287df0.chunk.js",
-    "main.js.map": "/wellnesslab_web/static/js/main.b7287df0.chunk.js.map",
+    "main.js": "/wellnesslab_web/static/js/main.d669420c.chunk.js",
+    "main.js.map": "/wellnesslab_web/static/js/main.d669420c.chunk.js.map",
     "runtime-main.js": "/wellnesslab_web/static/js/runtime-main.17356633.js",
     "runtime-main.js.map": "/wellnesslab_web/static/js/runtime-main.17356633.js.map",
     "static/css/2.cfb91a5b.chunk.css": "/wellnesslab_web/static/css/2.cfb91a5b.chunk.css",
     "static/js/2.87b83980.chunk.js": "/wellnesslab_web/static/js/2.87b83980.chunk.js",
     "static/js/2.87b83980.chunk.js.map": "/wellnesslab_web/static/js/2.87b83980.chunk.js.map",
     "index.html": "/wellnesslab_web/index.html",
-    "precache-manifest.55376fe91613968afcddd94b1b62c8cc.js": "/wellnesslab_web/precache-manifest.55376fe91613968afcddd94b1b62c8cc.js",
+    "precache-manifest.db2c6d4cbb6ecfe491c9d403bfa69121.js": "/wellnesslab_web/precache-manifest.db2c6d4cbb6ecfe491c9d403bfa69121.js",
     "service-worker.js": "/wellnesslab_web/service-worker.js",
     "static/css/2.cfb91a5b.chunk.css.map": "/wellnesslab_web/static/css/2.cfb91a5b.chunk.css.map",
     "static/css/main.0ab73210.chunk.css.map": "/wellnesslab_web/static/css/main.0ab73210.chunk.css.map",
@@ -37,6 +37,6 @@
     "static/css/2.cfb91a5b.chunk.css",
     "static/js/2.87b83980.chunk.js",
     "static/css/main.0ab73210.chunk.css",
-    "static/js/main.b7287df0.chunk.js"
+    "static/js/main.d669420c.chunk.js"
   ]
 }
